@@ -86,9 +86,9 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public Product findProductById(Long id) throws ProductException {
+    public Product findProductById(Long id, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
-        resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
+        resource = resource.path(java.text.MessageFormat.format("{0}{1}", new Object[]{id, key}));
         Product p = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(Product.class);
         if (p == null) {
             throw new ProductException();

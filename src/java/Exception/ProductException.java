@@ -5,6 +5,8 @@
  */
 package Exception;
 
+import javax.ws.rs.core.Response;
+
 /**
  *
  * @author Guilherme Pereira
@@ -12,6 +14,10 @@ package Exception;
 public class ProductException extends Exception {
 
     public ProductException() {
-        super("Product Not Found");
+        super("Product Not Found LOOOOL");
+    }
+
+    public ProductException(Response.Status status) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

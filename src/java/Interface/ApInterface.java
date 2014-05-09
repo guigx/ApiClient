@@ -26,7 +26,7 @@ public interface ApInterface {
 
     public List<Product> findProductByDesignation(String designation) throws ProductException;
 
-    public Product findProductById(Long id) throws ProductException;
+    public Product findProductById(Long id, double key) throws ProductException;
 
     public String findReplacementDateByProduct(Long id);
 

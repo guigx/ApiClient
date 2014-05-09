@@ -8,7 +8,8 @@
     </h:head>
     <h:body>
         <h:form>
-            search<h:inputText value="#{searchController.search}"/>
+            search<h:inputText value="#{searchController.search}"/><br></br>
+            Key<h:inputText value="#{searchController.apiKey}"/>
             <h:commandButton value="confirm" action="#{searchController.findProductById()}"/>
             <br />
             <h:outputText value="´#{searchController.selectedProduct.brand}"/>

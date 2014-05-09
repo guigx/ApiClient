@@ -41,7 +41,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public Product findProductById(Long id) {
+    public Product findProductById(Long id, double key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

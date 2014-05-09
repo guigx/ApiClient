@@ -6,6 +6,7 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.ws.rs.NotFoundException;
 import pojos.Product;
 
 @Named
@@ -17,11 +18,13 @@ public class SearchController {
     Product selectedProduct;
 
     private String search;
+    private double apiKey;
 
     @Inject
     Settings settings;
     ApRest apir;
 
+    //Getter´s and Setter´s
     public Product getSelectedProduct() {
         return selectedProduct;
     }
@@ -62,6 +65,15 @@ public class SearchController {
         this.result = result;
     }
 
+    public double getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(double apiKey) {
+        this.apiKey = apiKey;
+    }
+
+    //Methods
     public void findProductByCategory() throws ProductException {
         try {
             selectedList = settings.getApiService().findProdutByCategory(search);
@@ -97,8 +109,10 @@ public class SearchController {
     public void findProductById() throws ProductException {
         Long id = Long.parseLong(search);
         try {
-            selectedProduct = settings.getApiService().findProductById(id);
-        } catch (ProductException ex) {
+            selectedProduct = settings.getApiService().findProductById(id, apiKey);
+        } catch (NotFoundException ex) {
+//            ex.getMessage();
+            //throw new NotFoundException("Product Not Found LOOOL");
             throw new ProductException();
         }
     }
