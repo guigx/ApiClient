@@ -108,7 +108,7 @@ public class SearchController {
     public void findProductById() throws ProductException {
         Long id = Long.parseLong(search);
         try {
-            selectedProduct = settings.getApiService().findProductById(id, apiKey);
+            selectedProduct = settings.getApiService().findProductById(id);
         } catch (ProductException ex) {
 //            ex.getMessage();
             //throw new NotFoundException("Product Not Found LOOOL");

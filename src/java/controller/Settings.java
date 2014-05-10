@@ -37,4 +37,12 @@ public class Settings implements Serializable {
         //}
     }
 
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
+
 }

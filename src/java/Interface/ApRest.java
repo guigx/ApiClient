@@ -6,7 +6,9 @@
 package Interface;
 
 import Exception.ProductException;
+import controller.Settings;
 import java.util.List;
+import javax.inject.Inject;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -27,6 +29,9 @@ import pojos.Product;
  */
 public class ApRest implements ApInterface {
 
+    @Inject
+    Settings settings;
+
     private WebTarget webTargetProduct;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/TecnoApi/webresources";
@@ -40,7 +45,7 @@ public class ApRest implements ApInterface {
     public List<Product> findProdutByCategory(String category) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("category/{0}", new Object[]{category}));
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(new GenericType<List<Product>>() {
+        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", settings.getApiKey()).get(new GenericType<List<Product>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -52,7 +57,7 @@ public class ApRest implements ApInterface {
     @Override
     public List<Product> findAllProducts() throws ProductException {
         WebTarget resource = webTargetProduct;
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(new GenericType<List<Product>>() {
+        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", settings.getApiKey()).get(new GenericType<List<Product>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -65,7 +70,7 @@ public class ApRest implements ApInterface {
     public List<Product> findProductByDescription(String description) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("description/{0}", new Object[]{description}));
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(new GenericType<List<Product>>() {
+        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", settings.getApiKey()).get(new GenericType<List<Product>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -77,7 +82,7 @@ public class ApRest implements ApInterface {
     public List<Product> findProductByDesignation(String designation) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("designation/{0}", new Object[]{designation}));
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(new GenericType<List<Product>>() {
+        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", settings.getApiKey()).get(new GenericType<List<Product>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -86,10 +91,10 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public Product findProductById(Long id, double key) throws ProductException {
+    public Product findProductById(Long id) throws ProductException {
         WebTarget resource = webTargetProduct;
-        resource = resource.path(java.text.MessageFormat.format("{0}/{1}", new Object[]{key, id}));
-        Product p = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get(Product.class);
+        resource = resource.path(java.text.MessageFormat.format("{1}", new Object[]{id}));
+        Product p = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", settings.getApiKey()).get(Product.class);
         if (p == null) {
             throw new ProductException();
         }
@@ -100,7 +105,7 @@ public class ApRest implements ApInterface {
     public String findReplacementDateByProduct(Long id) {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("replacement-Date/{0}", new Object[]{id}));
-        String date = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(new GenericType<String>() {
+        String date = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("key", settings.getApiKey()).get(new GenericType<String>() {
         });
         return date;
     }
@@ -109,7 +114,7 @@ public class ApRest implements ApInterface {
     public int findStockByProduct(Long id) {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("stock/{0}", new Object[]{id}));
-        int stock = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).get(new GenericType<Integer>() {
+        int stock = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("key", settings.getApiKey()).get(new GenericType<Integer>() {
         });
         return stock;
     }
