@@ -94,6 +94,7 @@ public class ApRest implements ApInterface {
     public Product findProductById(Long id) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("{1}", new Object[]{id}));
+        System.out.println("apkeyyyy---------" + settings.getApiKey());
         Product p = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", settings.getApiKey()).get(Product.class);
         if (p == null) {
             throw new ProductException();
