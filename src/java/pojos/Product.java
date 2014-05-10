@@ -46,6 +46,10 @@ public class Product {
         this.repoDate = repoDate;
     }
 
+    public void setRepoDate(GregorianCalendar repoDate) {
+        this.repoDate = repoDate;
+    }
+
     public Long getId() {
         return id;
     }

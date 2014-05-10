@@ -18,18 +18,18 @@ public interface ApInterface {
     /**
      *
      */
-    public List<Product> findProdutByCategory(String category, String key) throws ProductException;
+    public List<Product> findProdutByCategory(String category, double key) throws ProductException;
 
-    public List<Product> findAllProducts(String key) throws ProductException;
+    public List<Product> findAllProducts(double key) throws ProductException;
 
-    public List<Product> findProductByDescription(String description, String key) throws ProductException;
+    public List<Product> findProductByDescription(String description, double key) throws ProductException;
 
-    public List<Product> findProductByDesignation(String designation, String key) throws ProductException;
+    public List<Product> findProductByDesignation(String designation, double key) throws ProductException;
 
-    public Product findProductById(Long id, String Key) throws ProductException;
+    public Product findProductById(Long id, double Key) throws ProductException;
 
-    public String findReplacementDateByProduct(Long id, String key);
+    public String findReplacementDateByProduct(Long id, double key) throws ProductException;
 
-    public int findStockByProduct(Long id, String key);
+    public int findStockByProduct(Long id, double key) throws ProductException;
 
 }

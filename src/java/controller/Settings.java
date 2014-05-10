@@ -21,14 +21,14 @@ import javax.inject.Named;
 @Stateful
 public class Settings implements Serializable {
 
-    String apiKey;
+    double apiKey;
     Boolean isSoap;
 
     /**
      * Creates a new instance of Settings
      */
     public Settings() {
-        this.apiKey = "123";
+        this.apiKey = 123;
 
     }
 
@@ -40,11 +40,11 @@ public class Settings implements Serializable {
         //}
     }
 
-    public String getApiKey() {
+    public double getApiKey() {
         return apiKey;
     }
 
-    public void setApiKey(String apiKey) {
+    public void setApiKey(double apiKey) {
         this.apiKey = apiKey;
     }
 

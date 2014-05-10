@@ -39,7 +39,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findProdutByCategory(String category, String key) throws ProductException {
+    public List<Product> findProdutByCategory(String category, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("category/{0}", new Object[]{category}));
         List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
@@ -52,7 +52,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findAllProducts(String key) throws ProductException {
+    public List<Product> findAllProducts(double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
         });
@@ -64,7 +64,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findProductByDescription(String description, String key) throws ProductException {
+    public List<Product> findProductByDescription(String description, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("description/{0}", new Object[]{description}));
         List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
@@ -76,7 +76,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findProductByDesignation(String designation, String key) throws ProductException {
+    public List<Product> findProductByDesignation(String designation, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("designation/{0}", new Object[]{designation}));
         List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
@@ -88,7 +88,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public Product findProductById(Long id, String key) throws ProductException {
+    public Product findProductById(Long id, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
         Product p = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(Product.class);
@@ -99,7 +99,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public String findReplacementDateByProduct(Long id, String key) {
+    public String findReplacementDateByProduct(Long id, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("replacement-Date/{0}", new Object[]{id}));
         String date = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("key", key).get(new GenericType<String>() {
@@ -108,7 +108,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public int findStockByProduct(Long id, String key) {
+    public int findStockByProduct(Long id, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("stock/{0}", new Object[]{id}));
         int stock = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("key", key).get(new GenericType<Integer>() {
