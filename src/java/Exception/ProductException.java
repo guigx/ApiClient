@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 public class ProductException extends Exception {
 
     public ProductException() {
-        super("Product Not Found LOOOOL");
+        super("Product Not Found");
     }
 
     public ProductException(Response.Status status) {

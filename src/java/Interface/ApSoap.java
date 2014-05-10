@@ -5,6 +5,7 @@
  */
 package Interface;
 
+import Exception.ProductException;
 import java.util.List;
 import pojos.Product;
 
@@ -21,37 +22,37 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public List findProdutByCategory(String category) {
+    public List<Product> findProdutByCategory(String category, String key) throws ProductException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List findAllProducts() {
+    public List<Product> findAllProducts(String key) throws ProductException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List findProductByDescription(String category) {
+    public List<Product> findProductByDescription(String description, String key) throws ProductException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public List findProductByDesignation(String category) {
+    public List<Product> findProductByDesignation(String designation, String key) throws ProductException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Product findProductById(Long id) {
+    public Product findProductById(Long id, String Key) throws ProductException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String findReplacementDateByProduct(Long id) {
+    public String findReplacementDateByProduct(Long id, String key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public int findStockByProduct(Long id) {
+    public int findStockByProduct(Long id, String key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

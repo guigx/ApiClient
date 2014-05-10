@@ -10,11 +10,13 @@ import Interface.ApRest;
 import java.io.Serializable;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Guilherme Pereira
  */
+@Named
 @SessionScoped
 @Stateful
 public class Settings implements Serializable {

@@ -17,7 +17,6 @@ public class SearchController {
     Product selectedProduct;
 
     private String search;
-    private double apiKey;
 
     @Inject
     Settings settings;
@@ -64,18 +63,10 @@ public class SearchController {
         this.result = result;
     }
 
-    public double getApiKey() {
-        return apiKey;
-    }
-
-    public void setApiKey(double apiKey) {
-        this.apiKey = apiKey;
-    }
-
     //Methods
     public void findProductByCategory() throws ProductException {
         try {
-            selectedList = settings.getApiService().findProdutByCategory(search);
+            selectedList = settings.getApiService().findProdutByCategory(search, settings.getApiKey());
         } catch (ProductException ex) {
             throw new ProductException();
         }
@@ -83,7 +74,7 @@ public class SearchController {
 
     public void findAllProducts() throws ProductException {
         try {
-            selectedList = settings.getApiService().findAllProducts();
+            selectedList = settings.getApiService().findAllProducts(settings.getApiKey());
         } catch (ProductException ex) {
             throw new ProductException();
         }
@@ -91,7 +82,7 @@ public class SearchController {
 
     public void findProductByDescription() throws ProductException {
         try {
-            selectedList = settings.getApiService().findProductByDescription(search);
+            selectedList = settings.getApiService().findProductByDescription(search, settings.getApiKey());
         } catch (ProductException ex) {
             throw new ProductException();
         }
@@ -99,7 +90,7 @@ public class SearchController {
 
     public void findProductByDesignation() throws ProductException {
         try {
-            selectedList = settings.getApiService().findProductByDesignation(search);
+            selectedList = settings.getApiService().findProductByDesignation(search, settings.getApiKey());
         } catch (ProductException ex) {
             throw new ProductException();
         }
@@ -108,7 +99,7 @@ public class SearchController {
     public void findProductById() throws ProductException {
         Long id = Long.parseLong(search);
         try {
-            selectedProduct = settings.getApiService().findProductById(id);
+            selectedProduct = settings.getApiService().findProductById(id, settings.getApiKey());
         } catch (ProductException ex) {
 //            ex.getMessage();
             //throw new NotFoundException("Product Not Found LOOOL");
@@ -118,12 +109,12 @@ public class SearchController {
 
     public void findReplacementDateByProduct() throws ProductException {
         Long id = Long.parseLong(search);
-        result = settings.getApiService().findReplacementDateByProduct(id);
+        result = settings.getApiService().findReplacementDateByProduct(id, settings.getApiKey());
     }
 
     public int findStockByProduct() throws ProductException {
         Long id = Long.parseLong(search);
-        return settings.getApiService().findStockByProduct(id);
+        return settings.getApiService().findStockByProduct(id, settings.getApiKey());
     }
 
 }
