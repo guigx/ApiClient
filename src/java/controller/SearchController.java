@@ -6,7 +6,6 @@ import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.ws.rs.NotFoundException;
 import pojos.Product;
 
 @Named
@@ -110,7 +109,7 @@ public class SearchController {
         Long id = Long.parseLong(search);
         try {
             selectedProduct = settings.getApiService().findProductById(id, apiKey);
-        } catch (NotFoundException ex) {
+        } catch (ProductException ex) {
 //            ex.getMessage();
             //throw new NotFoundException("Product Not Found LOOOL");
             throw new ProductException();
