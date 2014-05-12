@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
+import pojos.OrderReceived;
 import pojos.Product;
 
 /**
@@ -31,12 +32,14 @@ public class ApRest implements ApInterface {
 
     Settings settings;
     private WebTarget webTargetProduct;
+    private WebTarget webTargetOrder;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/TecnoApi/webresources";
 
     public ApRest() {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         webTargetProduct = client.target(BASE_URI).path("product");
+        webTargetOrder = client.target(BASE_URI).path("orderreceived");
     }
 
     @Override
@@ -128,7 +131,7 @@ public class ApRest implements ApInterface {
 
     @Override
     public String orderDeliveryDate(Long id, double key) {
-        WebTarget resource = webTargetProduct;
+        WebTarget resource = webTargetOrder;
         resource = resource.path(java.text.MessageFormat.format("stock/{0}", new Object[]{id}));
         String deliveryDate = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("key", key).get(new GenericType<String>() {
         });
@@ -137,20 +140,28 @@ public class ApRest implements ApInterface {
 
     @Override
     public String makeOrder(Map<Long, Integer> map, double Key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //String json= new Gson().toJson(map);
+        return webTargetOrder.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(map, javax.ws.rs.core.MediaType.APPLICATION_JSON), String.class);
+    }
+
+    @Override
+    public OrderReceived findOrderById(Long id, double key) {
+        WebTarget resource = webTargetOrder;
+        resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
+        OrderReceived order = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(OrderReceived.class);
+        return order;
+    }
+
+    @Override
+    public List<OrderReceived> findAllOrders(double key) {
+        WebTarget resource = webTargetOrder;
+        List<OrderReceived> ordertList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<OrderReceived>>() {
+        });
+        return ordertList;
+
     }
 
     public void close() {
         client.close();
-    }
-
-    @Override
-    public pojos.OrderReceived findOrderById(Long id, double key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<pojos.OrderReceived> findAllOrders(double key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
