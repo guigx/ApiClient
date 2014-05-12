@@ -4,9 +4,22 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
-        Hello from Facelets
+        <h:form>
+            search<h:inputText value="#{searchController.search}"/><br></br>
+            Key<h:inputText value="#{settings.apiKey}"/>
+            <h:commandButton value="confirm" action="#{searchController.findProductById()}"/>
+            <br />
+            <h:outputText value="´#{searchController.selectedProduct.brand}"/>
+<!--            <h:dataTable var="item" value="#{searchController.selectedList}">
+                <h:column>
+            #{item.brand}
+        </h:column>
+    </h:dataTable>-->
+        </h:form>
     </h:body>
+
 </html>
 
