@@ -6,7 +6,7 @@
 package controller;
 
 import Interface.ApInterface;
-import Interface.ApRest;
+import Interface.ApSoap;
 import java.io.Serializable;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
@@ -34,10 +34,10 @@ public class Settings implements Serializable {
 
     public ApInterface getApiService() {
 //        if (isSoap) {
-//            return new ApSoap();
+        return new ApSoap();
 //        } else {
-        return new ApRest();
-        //}
+//        return new ApRest();
+//        }
     }
 
     public double getApiKey() {

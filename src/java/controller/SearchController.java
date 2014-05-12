@@ -96,14 +96,12 @@ public class SearchController {
         }
     }
 
-    public void findProductById() throws ProductException {
+    public void findProductById() {
         Long id = Long.parseLong(search);
         try {
             selectedProduct = settings.getApiService().findProductById(id, settings.getApiKey());
         } catch (ProductException ex) {
-//            ex.getMessage();
-            //throw new NotFoundException("Product Not Found LOOOL");
-            throw new ProductException();
+
         }
     }
 
