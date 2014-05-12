@@ -8,6 +8,7 @@ package Interface;
 import Exception.ProductException;
 import controller.Settings;
 import java.util.List;
+import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
@@ -116,12 +117,40 @@ public class ApRest implements ApInterface {
         return stock;
     }
 
+    @Override
+    public double login(String email, String password) {
+        WebTarget resource = webTargetProduct;
+        resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{email}));
+        double key = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("password", password).get(new GenericType<Double>() {
+        });
+        return key;
+    }
+
+    @Override
+    public String orderDeliveryDate(Long id, double key) {
+        WebTarget resource = webTargetProduct;
+        resource = resource.path(java.text.MessageFormat.format("stock/{0}", new Object[]{id}));
+        String deliveryDate = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("key", key).get(new GenericType<String>() {
+        });
+        return deliveryDate;
+    }
+
+    @Override
+    public String makeOrder(Map<Long, Integer> map, double Key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void close() {
         client.close();
     }
 
     @Override
-    public double login(String email, String password) {
+    public pojos.OrderReceived findOrderById(Long id, double key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<pojos.OrderReceived> findAllOrders(double key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

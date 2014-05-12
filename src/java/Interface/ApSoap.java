@@ -8,10 +8,13 @@ package Interface;
 import DTOConverter.DTOConverter;
 import Exception.ProductException;
 import Soap.LoginInvalidateException_Exception;
+import Soap.OrderNotCreatedException_Exception;
 import Soap.ProductNotFoundException_Exception;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import pojos.OrderReceived;
 import pojos.Product;
 
 /**
@@ -121,6 +124,39 @@ public class ApSoap implements ApInterface {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             return -1.0;
         }
+    }
+
+    @Override
+    public String makeOrder(Map<Long, Integer> map, double key) {
+
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        return port.makeOrder(map, key);
+    }
+
+    @Override
+    public OrderReceived findOrderById(Long id, double key) {
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        return DTOConverter.convertOrder(port.findOrder(id, key));
+    }
+
+    @Override
+    public String orderDeliveryDate(Long id, double key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<OrderReceived> findAllOrders(double key) {
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        return DTOConverter.convertOrderList(port.findAllOrders(key));
+    }
+
+    private static String makeOrder_1(Soap.MakeOrder.Parameter parameter, double key) throws OrderNotCreatedException_Exception {
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        return port.makeOrder(parameter, key);
     }
 
 }
