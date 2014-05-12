@@ -7,6 +7,7 @@ package Interface;
 
 import DTOConverter.DTOConverter;
 import Exception.ProductException;
+import Soap.LoginInvalidateException_Exception;
 import Soap.ProductNotFoundException_Exception;
 import java.util.List;
 import java.util.logging.Level;
@@ -106,6 +107,19 @@ public class ApSoap implements ApInterface {
         } catch (ProductNotFoundException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             throw new ProductException();
+        }
+    }
+
+    @Override
+    public double login(String email, String password) {
+
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        try {
+            return port.login(email, password);
+        } catch (LoginInvalidateException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return -1.0;
         }
     }
 

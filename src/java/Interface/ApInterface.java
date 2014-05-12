@@ -32,4 +32,6 @@ public interface ApInterface {
 
     public int findStockByProduct(Long id, double key) throws ProductException;
 
+    public double login(String email, String password);
+
 }

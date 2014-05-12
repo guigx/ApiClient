@@ -4,6 +4,8 @@ import Exception.ProductException;
 import Interface.ApRest;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pojos.Product;
@@ -64,35 +66,35 @@ public class SearchController {
     }
 
     //Methods
-    public void findProductByCategory() throws ProductException {
+    public void findProductByCategory() {
         try {
             selectedList = settings.getApiService().findProdutByCategory(search, settings.getApiKey());
         } catch (ProductException ex) {
-            throw new ProductException();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
         }
     }
 
-    public void findAllProducts() throws ProductException {
+    public void findAllProducts() {
         try {
             selectedList = settings.getApiService().findAllProducts(settings.getApiKey());
         } catch (ProductException ex) {
-            throw new ProductException();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
         }
     }
 
-    public void findProductByDescription() throws ProductException {
+    public void findProductByDescription() {
         try {
             selectedList = settings.getApiService().findProductByDescription(search, settings.getApiKey());
         } catch (ProductException ex) {
-            throw new ProductException();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
         }
     }
 
-    public void findProductByDesignation() throws ProductException {
+    public void findProductByDesignation() {
         try {
             selectedList = settings.getApiService().findProductByDesignation(search, settings.getApiKey());
         } catch (ProductException ex) {
-            throw new ProductException();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
         }
     }
 
@@ -101,18 +103,27 @@ public class SearchController {
         try {
             selectedProduct = settings.getApiService().findProductById(id, settings.getApiKey());
         } catch (ProductException ex) {
-
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
         }
     }
 
-    public void findReplacementDateByProduct() throws ProductException {
-        Long id = Long.parseLong(search);
-        result = settings.getApiService().findReplacementDateByProduct(id, settings.getApiKey());
+    public void findReplacementDateByProduct() {
+        try {
+            Long id = Long.parseLong(search);
+            result = settings.getApiService().findReplacementDateByProduct(id, settings.getApiKey());
+        } catch (ProductException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
+        }
     }
 
-    public int findStockByProduct() throws ProductException {
-        Long id = Long.parseLong(search);
-        return settings.getApiService().findStockByProduct(id, settings.getApiKey());
+    public int findStockByProduct() {
+        try {
+            Long id = Long.parseLong(search);
+            return settings.getApiService().findStockByProduct(id, settings.getApiKey());
+        } catch (ProductException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
+            return 0;
+        }
     }
 
 }

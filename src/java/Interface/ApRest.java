@@ -119,4 +119,9 @@ public class ApRest implements ApInterface {
     public void close() {
         client.close();
     }
+
+    @Override
+    public double login(String email, String password) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

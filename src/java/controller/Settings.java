@@ -10,15 +10,13 @@ import Interface.ApSoap;
 import java.io.Serializable;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
-import javax.inject.Named;
 
 /**
  *
  * @author Guilherme Pereira
  */
-@Named
-@SessionScoped
 @Stateful
+@SessionScoped
 public class Settings implements Serializable {
 
     double apiKey;
