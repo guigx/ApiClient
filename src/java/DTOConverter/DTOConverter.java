@@ -8,10 +8,7 @@ package DTOConverter;
 import java.util.ArrayList;
 import java.util.List;
 import pojos.Client;
-import pojos.Entry;
-import pojos.MakeOrder;
 import pojos.OrderReceived;
-import pojos.Parameter;
 import pojos.Product;
 
 /**
@@ -32,6 +29,7 @@ public class DTOConverter {
             newProduct.setSellPrice(p.getSellPrice());
             newProduct.setVersion(p.getVersion());
             newProduct.setStockQtt(p.getStockQtt());
+            newProduct.setRepoDate(p.getRepoDate().toGregorianCalendar().getTime());
             productList.add(newProduct);
         }
         return productList;
@@ -46,6 +44,7 @@ public class DTOConverter {
         newProduct.setModel(p.getModel());
         newProduct.setSellPrice(p.getSellPrice());
         newProduct.setVersion(p.getVersion());
+        newProduct.setRepoDate(p.getRepoDate().toGregorianCalendar().getTime());
         newProduct.setStockQtt(p.getStockQtt());
         return newProduct;
     }
@@ -82,34 +81,34 @@ public class DTOConverter {
         return newClient;
     }
 
-    public static List<Entry> convertEntryList(List<Soap.MakeOrder.Parameter.Entry> entryListSoap) {
-        List<Entry> entryList = new ArrayList<>();
-        for (Soap.MakeOrder.Parameter.Entry entry : entryListSoap) {
-            Entry newEntry = new Entry();
-            newEntry.setKey(entry.getKey());
-            newEntry.setValue(entry.getValue());
-            entryList.add(newEntry);
-        }
-        return entryList;
-    }
-
-    public static Parameter convertParameter(Soap.MakeOrder.Parameter parameter) {
-        Parameter newParameter = new Parameter();
-        newParameter.setEntry(convertEntryList(parameter.getEntry()));
-        return newParameter;
-
-    }
-
-//        public static Soap.MakeOrder.Parameter convertMap(Map<Long, Integer> map) {
-//        Soap.MakeOrder.Parameter newParameterSoap = new Soap.MakeOrder.Parameter();
-//        newParameterSoap.s
+//    public static List<Entry> convertEntryList(List<Soap.MakeOrder.Parameter.Entry> entryListSoap) {
+//        List<Entry> entryList = new ArrayList<>();
+//        for (Soap.MakeOrder.Parameter.Entry entry : entryListSoap) {
+//            Entry newEntry = new Entry();
+//            newEntry.setKey(entry.getKey());
+//            newEntry.setValue(entry.getValue());
+//            entryList.add(newEntry);
+//        }
+//        return entryList;
+//    }
+//
+//    public static Parameter convertParameter(Soap.MakeOrder.Parameter parameter) {
+//        Parameter newParameter = new Parameter();
+//        newParameter.setEntry(convertEntryList(parameter.getEntry()));
 //        return newParameter;
 //
 //    }
-    public static MakeOrder convertMakeOrder(Soap.MakeOrder makeOrder) {
-        MakeOrder newMakeOrder = new MakeOrder();
-        newMakeOrder.setKey(makeOrder.getKey());
-        newMakeOrder.setParameter(convertParameter(makeOrder.getParameter()));
-        return newMakeOrder;
-    }
+//
+////        public static Soap.MakeOrder.Parameter convertMap(Map<Long, Integer> map) {
+////        Soap.MakeOrder.Parameter newParameterSoap = new Soap.MakeOrder.Parameter();
+////        newParameterSoap.s
+////        return newParameter;
+////
+////    }
+//    public static MakeOrder convertMakeOrder(Soap.MakeOrder makeOrder) {
+//        MakeOrder newMakeOrder = new MakeOrder();
+//        newMakeOrder.setKey(makeOrder.getKey());
+//        newMakeOrder.setParameter(convertParameter(makeOrder.getParameter()));
+//        return newMakeOrder;
+//    }
 }

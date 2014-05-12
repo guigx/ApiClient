@@ -101,7 +101,11 @@ public class ApSoap implements ApInterface {
             return port.replacementDateByProduct(id, key);
         } catch (ProductNotFoundException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ProductException();
+            return "Product not found";
+        } catch (ClientNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return "Client not found";
+
         }
     }
 
@@ -136,7 +140,7 @@ public class ApSoap implements ApInterface {
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
         try {
-            return port.makeOrder((MakeOrder.Parameter) map, key);
+            return port.makeOrder((MakeOrder.Map) map, key);
         } catch (OrderNotCreatedException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             return "Order not created";
@@ -175,10 +179,9 @@ public class ApSoap implements ApInterface {
         }
     }
 
-    private static String makeOrder_1(Soap.MakeOrder.Parameter parameter, double key) throws OrderNotCreatedException_Exception {
-        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
-        Soap.SoapWebService port = service.getSoapWebServicePort();
-        return port.makeOrder(parameter, key);
-    }
-
+//    private static String makeOrder_1(Soap.MakeOrder.Parameter parameter, double key) throws OrderNotCreatedException_Exception {
+//        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+//        Soap.SoapWebService port = service.getSoapWebServicePort();
+//        return port.makeOrder(parameter, key);
+//    }
 }
