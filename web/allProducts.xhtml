@@ -1,12 +1,63 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./template/clientTemplate.xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html">
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
+        <h1>All Products</h1>
         <h:form>
-            testestes
+            <h:outputText value="ApiKey---->"/>
+            <h:outputText value="#{productController.sessionBean.apiKey}"/>
+            <p:dataTable id="allProds" var="product" value="#{productController.allProducts()}" paginator="true" rows="10"
+                         >
+
+                <f:facet name="header">
+                    All Products
+                </f:facet>
+
+                <!--                <p:column headerText="Select" selectionMode="multiple" style="width:4%" />-->
+
+                <p:column headerText="ID" style="width:24%">
+                    #{product.id}
+                </p:column>
+
+                <p:column headerText="Category" style="width:24%">
+                    #{product.category}
+                </p:column>
+
+                <p:column headerText="Brand" style="width:24%">
+                    #{product.brand}
+                </p:column>
+
+                <p:column headerText="Model" style="width:24%">
+                    #{product.model}
+                </p:column>
+
+                <p:column headerText="Version" style="width:24%">
+                    #{product.version}
+                </p:column>
+
+                <p:column headerText="Stock Quantity" style="width:24%">
+                    #{product.stockQtt}
+                </p:column>
+
+                <p:column headerText="Reposition Date" style="width:24%">
+                    #{product.repoDate}
+                </p:column>
+
+                <p:column headerText="Price" style="width:24%">
+                    #{product.sellPrice}
+                </p:column>
+
+                <f:facet name="footer">
+                    <!--                    <p:commandButton id="multiViewButton" value="Place Order" icon="ui-icon-search"
+                                                         update=":form:displayMulti" oncomplete="PF('multiCarDialog').show()"/>-->
+                </f:facet>
+            </p:dataTable>
 
         </h:form>
 

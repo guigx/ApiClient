@@ -26,7 +26,6 @@ public class Settings implements Serializable {
      * Creates a new instance of Settings
      */
     public Settings() {
-        this.apiKey = 123;
 
     }
 

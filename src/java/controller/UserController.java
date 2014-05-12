@@ -5,9 +5,11 @@
  */
 package controller;
 
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import util.Encrypt;
 
 /**
@@ -56,8 +58,17 @@ public class UserController {
     public String makeLogin() {
         String passEncripted = Encrypt.cryptWithMD5(password);
         double key = sessionBean.getApiService().login(email, passEncripted);
-        sessionBean.apiKey = key;
-        return "allProducts";
+        sessionBean.setApiKey(key);
+        return "allProducts?faces-redirect=true";
+    }
+
+    public String logOut() {
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        session.invalidate();
+
+        return "index";
     }
 
 }
