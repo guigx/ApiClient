@@ -80,35 +80,4 @@ public class DTOConverter {
         newClient.setPassword(client.getPassword());
         return newClient;
     }
-
-//    public static List<Entry> convertEntryList(List<Soap.MakeOrder.Parameter.Entry> entryListSoap) {
-//        List<Entry> entryList = new ArrayList<>();
-//        for (Soap.MakeOrder.Parameter.Entry entry : entryListSoap) {
-//            Entry newEntry = new Entry();
-//            newEntry.setKey(entry.getKey());
-//            newEntry.setValue(entry.getValue());
-//            entryList.add(newEntry);
-//        }
-//        return entryList;
-//    }
-//
-//    public static Parameter convertParameter(Soap.MakeOrder.Parameter parameter) {
-//        Parameter newParameter = new Parameter();
-//        newParameter.setEntry(convertEntryList(parameter.getEntry()));
-//        return newParameter;
-//
-//    }
-//
-////        public static Soap.MakeOrder.Parameter convertMap(Map<Long, Integer> map) {
-////        Soap.MakeOrder.Parameter newParameterSoap = new Soap.MakeOrder.Parameter();
-////        newParameterSoap.s
-////        return newParameter;
-////
-////    }
-//    public static MakeOrder convertMakeOrder(Soap.MakeOrder makeOrder) {
-//        MakeOrder newMakeOrder = new MakeOrder();
-//        newMakeOrder.setKey(makeOrder.getKey());
-//        newMakeOrder.setParameter(convertParameter(makeOrder.getParameter()));
-//        return newMakeOrder;
-//    }
 }

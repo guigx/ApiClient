@@ -164,7 +164,14 @@ public class ApSoap implements ApInterface {
 
     @Override
     public String orderDeliveryDate(Long id, double key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        try {
+            return port.orderDeliveryDate(id, key);
+        } catch (ClientNotFoundException_Exception | OrderNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override
@@ -179,9 +186,4 @@ public class ApSoap implements ApInterface {
         }
     }
 
-//    private static String makeOrder_1(Soap.MakeOrder.Parameter parameter, double key) throws OrderNotCreatedException_Exception {
-//        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
-//        Soap.SoapWebService port = service.getSoapWebServicePort();
-//        return port.makeOrder(parameter, key);
-//    }
 }
