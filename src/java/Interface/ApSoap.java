@@ -7,9 +7,13 @@ package Interface;
 
 import DTOConverter.DTOConverter;
 import Exception.ProductException;
+import Soap.ClientNotFoundException_Exception;
 import Soap.LoginInvalidateException_Exception;
+import Soap.MakeOrder;
 import Soap.OrderNotCreatedException_Exception;
+import Soap.OrderNotFoundException_Exception;
 import Soap.ProductNotFoundException_Exception;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -131,14 +135,27 @@ public class ApSoap implements ApInterface {
 
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
-        return port.makeOrder(map, key);
+        try {
+            return port.makeOrder((MakeOrder.Parameter) map, key);
+        } catch (OrderNotCreatedException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return "Order not created";
+        }
     }
 
     @Override
     public OrderReceived findOrderById(Long id, double key) {
-        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
-        Soap.SoapWebService port = service.getSoapWebServicePort();
-        return DTOConverter.convertOrder(port.findOrder(id, key));
+        try {
+            Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+            Soap.SoapWebService port = service.getSoapWebServicePort();
+            return DTOConverter.convertOrder(port.findOrder(id, key));
+        } catch (ClientNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (OrderNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     @Override
@@ -150,7 +167,12 @@ public class ApSoap implements ApInterface {
     public List<OrderReceived> findAllOrders(double key) {
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
-        return DTOConverter.convertOrderList(port.findAllOrders(key));
+        try {
+            return DTOConverter.convertOrderList(port.findAllOrders(key));
+        } catch (ClientNotFoundException_Exception | OrderNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return new ArrayList();
+        }
     }
 
     private static String makeOrder_1(Soap.MakeOrder.Parameter parameter, double key) throws OrderNotCreatedException_Exception {
