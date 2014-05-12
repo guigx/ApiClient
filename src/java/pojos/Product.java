@@ -5,7 +5,7 @@
  */
 package pojos;
 
-import java.util.GregorianCalendar;
+import java.util.Date;
 
 /**
  *
@@ -29,12 +29,12 @@ public class Product {
 
     private double sellPrice;
 
-    private GregorianCalendar repoDate;
+    private Date repoDate;
 
     public Product() {
     }
 
-    public Product(Long id, String brand, String model, String version, String description, String category, int stockQtt, double sellPrice, GregorianCalendar repoDate) {
+    public Product(Long id, String brand, String model, String version, String description, String category, int stockQtt, double sellPrice, Date repoDate) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -43,10 +43,6 @@ public class Product {
         this.category = category;
         this.stockQtt = stockQtt;
         this.sellPrice = sellPrice;
-        this.repoDate = repoDate;
-    }
-
-    public void setRepoDate(GregorianCalendar repoDate) {
         this.repoDate = repoDate;
     }
 
@@ -114,8 +110,12 @@ public class Product {
         this.sellPrice = sellPrice;
     }
 
-    public GregorianCalendar getRepoDate() {
+    public Date getRepoDate() {
         return repoDate;
+    }
+
+    public void setRepoDate(Date repoDate) {
+        this.repoDate = repoDate;
     }
 
 }
