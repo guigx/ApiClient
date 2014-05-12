@@ -7,6 +7,8 @@ package Interface;
 
 import Exception.ProductException;
 import java.util.List;
+import java.util.Map;
+import pojos.OrderReceived;
 import pojos.Product;
 
 /**
@@ -26,12 +28,20 @@ public interface ApInterface {
 
     public List<Product> findProductByDesignation(String designation, double key) throws ProductException;
 
-    public Product findProductById(Long id, double Key) throws ProductException;
+    public Product findProductById(Long id, double key) throws ProductException;
 
     public String findReplacementDateByProduct(Long id, double key) throws ProductException;
 
     public int findStockByProduct(Long id, double key) throws ProductException;
 
     public double login(String email, String password);
+
+    public String makeOrder(Map<Long, Integer> map, double key);
+
+    public OrderReceived findOrderById(Long id, double key);
+
+    public String orderDeliveryDate(Long id, double key);
+
+    public List<OrderReceived> findAllOrders(double key);
 
 }
