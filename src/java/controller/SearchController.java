@@ -101,9 +101,7 @@ public class SearchController {
         try {
             selectedProduct = settings.getApiService().findProductById(id, settings.getApiKey());
         } catch (ProductException ex) {
-//            ex.getMessage();
-            //throw new NotFoundException("Product Not Found LOOOL");
-            selectedProduct = null;
+
         }
     }
 
