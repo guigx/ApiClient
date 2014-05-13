@@ -10,6 +10,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/styles.css"/>
         <title>Facelets Template</title>
     </h:head>
 
@@ -28,15 +29,9 @@
             </h:form>
         </div>
         <div>
-            <div id="left">
+            <div id="left" class="left">
                 <ui:insert name="left">
-                    <h:form>
-                        <h:commandButton value="All Products" action="allProducts.xhtml"/>
-                        <br></br>
-                        <h:commandButton value="Search" action="search.xhtml"/>
-                        <br></br>
-                        <h:commandButton value="LogOut" action="#{userController.logOut()}"/>
-                    </h:form>
+                    <ui:include src="sideMenu.xhtml" />
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
