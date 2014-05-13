@@ -206,7 +206,14 @@ public class ApSoap implements ApInterface {
 
     @Override
     public List<DTOOrderReceived> findOrdersByClientId(Long id, double key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        try {
+            return DTOConverter.findOrdersByClientId(port.findOrderByClienId(id, key));
+        } catch (ClientNotFoundException_Exception | OrderNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return new ArrayList();
+        }
     }
 
 }
