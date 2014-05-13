@@ -198,10 +198,7 @@ public class ApSoap implements ApInterface {
         try {
             //return null;
             return DTOConverter.convertListDtoItemToSoapItems(port.findOrderItems(id, key));
-        } catch (ClientNotFoundException_Exception ex) {
-            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
-            return new ArrayList();
-        } catch (ItemNotFoundException_Exception ex) {
+        } catch (ClientNotFoundException_Exception | ItemNotFoundException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             return new ArrayList();
         }

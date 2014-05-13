@@ -9,6 +9,7 @@ import java.util.List;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import pojos.DTOOrderItem;
 import pojos.DTOOrderReceived;
 
 /**
@@ -22,6 +23,7 @@ public class OrderController {
     @Inject
     private Settings sessionBean;
     private Long orderSelected;
+    private double totalOrderPrice;
 
     public OrderController() {
     }
@@ -43,6 +45,14 @@ public class OrderController {
         this.orderSelected = orderSelected;
     }
 
+    public double getTotalOrderPrice() {
+        return totalOrderPrice;
+    }
+
+    public void setTotalOrderPrice(double totalOrderPrice) {
+        this.totalOrderPrice = totalOrderPrice;
+    }
+
     //Methods
     /**
      * Return order history
@@ -53,4 +63,16 @@ public class OrderController {
 
         return sessionBean.getApiService().findAllOrders(sessionBean.getApiKey());
     }
+
+    public List<DTOOrderItem> allOrderItems() {
+
+        List<DTOOrderItem> list = sessionBean.getApiService().findAllOrderItems(orderSelected, sessionBean.getApiKey());
+
+        for (DTOOrderItem it : list) {
+
+            totalOrderPrice += it.getPrice();
+        }
+        return list;
+    }
+
 }

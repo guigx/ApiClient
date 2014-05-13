@@ -42,16 +42,40 @@
 
         </h:form>
 
-
         <h:form id="itemsModal">
             <p:dialog id="itemsDialog" header="Quantity" widgetVar="dlg2" modal="true" height="100">
 
-                <p:dataTable id="orderItems" var="orderItem" value="#{orderController.allOrders}"
+                <p:dataTable id="orderItems" var="orderItem" value="#{orderController.allOrderItems}" paginator="true" rows="10">
+                    <f:facet name="header">
+                        Order No #{orderController.orderSelected} items
+                    </f:facet>
 
-        </p:dialog>
+                    <p:column headerText="Product ID" >
+                        #{orderItem.productId}
+                    </p:column>
 
-    </h:form>
+                    <p:column headerText="Name" >
+                        #{orderItem.productName}
+                    </p:column>
 
-</ui:define>
+                    <p:column headerText="Quantity" >
+                        #{orderItem.quantity}
+                    </p:column>
+
+                    <p:column headerText="Price" >
+                        #{orderItem.price}
+                    </p:column>
+
+                    <f:facet name="footer">
+                        Total: #{orderController.totalOrderPrice}€
+                    </f:facet>
+
+                </p:dataTable>
+
+            </p:dialog>
+
+        </h:form>
+
+    </ui:define>
 
 </ui:composition>
