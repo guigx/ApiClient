@@ -33,6 +33,7 @@ public class ApRest implements ApInterface {
     Settings settings;
     private WebTarget webTargetProduct;
     private WebTarget webTargetOrder;
+    private WebTarget webTargetClient;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/TecnoApi/webresources";
 
@@ -40,6 +41,7 @@ public class ApRest implements ApInterface {
         client = javax.ws.rs.client.ClientBuilder.newClient();
         webTargetProduct = client.target(BASE_URI).path("product");
         webTargetOrder = client.target(BASE_URI).path("orderreceived");
+        webTargetClient = client.target(BASE_URI).path("client");
     }
 
     @Override
@@ -122,10 +124,9 @@ public class ApRest implements ApInterface {
 
     @Override
     public double login(String email, String password) {
-        WebTarget resource = webTargetProduct;
+        WebTarget resource = webTargetClient;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{email}));
-        double key = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("password", password).get(new GenericType<Double>() {
-        });
+        double key = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("password", password).get(Double.class);
         return key;
     }
 
