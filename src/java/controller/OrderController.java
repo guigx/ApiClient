@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
@@ -19,7 +20,7 @@ import pojos.DTOOrderReceived;
  */
 @Named
 @ViewScoped
-public class OrderController {
+public class OrderController implements Serializable {
 
     @Inject
     private Settings sessionBean;
@@ -34,6 +35,7 @@ public class OrderController {
     public void init() {
 
         popRender = false;
+        orderSelected = 0L;
     }
 
     //Getter´s and Setter´s
