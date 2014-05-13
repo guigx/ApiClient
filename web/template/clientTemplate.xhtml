@@ -19,7 +19,15 @@
         </div>
         <div>
             <div id="left">
-                <ui:insert name="left">Left</ui:insert>
+                <ui:insert name="left">
+                    <h:form>
+                        <h:commandButton value="All Products" action="allProducts.xhtml"/>
+                        <br></br>
+                        <h:commandButton value="Search" action="search.xhtml"/>
+                        <br></br>
+                        <h:commandButton value="LogOut" action="#{userController.logOut()}"/>
+                    </h:form>
+                </ui:insert>
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>

@@ -7,13 +7,29 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+
     <ui:define name="content">
-        <h1>All Products</h1>
+
         <h:form>
+            <p:inputText value="#{searchController.search}" />
+            <br></br>
+            <p:selectOneMenu value="#{searchController.choice}">
+                <f:selectItem itemLabel="Select One" itemValue="" />
+                <f:selectItem itemLabel="Designation" itemValue="1" />
+                <f:selectItem itemLabel="Description" itemValue="2" />
+                <f:selectItem itemLabel="Category" itemValue="3" />
+                <f:selectItem itemLabel="ID" itemValue="4" />
+            </p:selectOneMenu>
+            <br></br>
+            <p:commandButton update=":searchTable" type="submit" value="Search" ajax="false" action="#{searchController.searchMethod()}">
+                <!--                <f:ajax render=":searchTable"/>-->
+            </p:commandButton>
+        </h:form>
+
+        <h:form id="searchTable">
             <h:outputText value="ApiKey---->"/>
             <h:outputText value="#{productController.sessionBean.apiKey}"/>
-            <p:dataTable id="allProds" var="product" value="#{productController.allProducts()}" paginator="true" rows="10"
-                         >
+            <p:dataTable id="allProds" var="product" value="#{searchController.selectedList}" paginator="true" rows="10">
 
                 <f:facet name="header">
                     All Products
@@ -64,7 +80,6 @@
             </p:dataTable>
 
         </h:form>
-
     </ui:define>
 
 </ui:composition>

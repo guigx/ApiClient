@@ -5,8 +5,6 @@
  */
 package pojos;
 
-import java.util.Date;
-
 /**
  *
  * @author Zueb LDA
@@ -29,12 +27,12 @@ public class Product {
 
     private double sellPrice;
 
-    private Date repoDate;
+    private String repoDate;
 
     public Product() {
     }
 
-    public Product(Long id, String brand, String model, String version, String description, String category, int stockQtt, double sellPrice, Date repoDate) {
+    public Product(Long id, String brand, String model, String version, String description, String category, int stockQtt, double sellPrice, String repoDate) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -110,11 +108,11 @@ public class Product {
         this.sellPrice = sellPrice;
     }
 
-    public Date getRepoDate() {
+    public String getRepoDate() {
         return repoDate;
     }
 
-    public void setRepoDate(Date repoDate) {
+    public void setRepoDate(String repoDate) {
         this.repoDate = repoDate;
     }
 

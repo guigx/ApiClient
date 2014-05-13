@@ -5,6 +5,8 @@
  */
 package DTOConverter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import pojos.Client;
@@ -17,7 +19,7 @@ import pojos.Product;
  */
 public class DTOConverter {
 
-    public static List<Product> convertProductList(List<Soap.Product> productListSoap) {
+    public static List<Product> convertProductList(List<Soap.Product> productListSoap) throws ParseException {
         List<Product> productList = new ArrayList<>();
         for (Soap.Product p : productListSoap) {
             Product newProduct = new Product();
@@ -29,7 +31,10 @@ public class DTOConverter {
             newProduct.setSellPrice(p.getSellPrice());
             newProduct.setVersion(p.getVersion());
             newProduct.setStockQtt(p.getStockQtt());
-            newProduct.setRepoDate(p.getRepoDate().toGregorianCalendar().getTime());
+
+            SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+
+            newProduct.setRepoDate(dt1.format(p.getRepoDate().toGregorianCalendar().getTime()));
             productList.add(newProduct);
         }
         return productList;
@@ -44,7 +49,8 @@ public class DTOConverter {
         newProduct.setModel(p.getModel());
         newProduct.setSellPrice(p.getSellPrice());
         newProduct.setVersion(p.getVersion());
-        newProduct.setRepoDate(p.getRepoDate().toGregorianCalendar().getTime());
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd-MM-yyyy");
+        newProduct.setRepoDate(dt1.format(p.getRepoDate().toGregorianCalendar().getTime()));
         newProduct.setStockQtt(p.getStockQtt());
         return newProduct;
     }
