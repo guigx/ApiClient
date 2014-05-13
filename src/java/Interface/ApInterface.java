@@ -47,4 +47,6 @@ public interface ApInterface {
 
     public List<DTOOrderItem> findAllOrderItems(Long id, double key);
 
+    public List<DTOOrderReceived> findOrdersByClientId(Long id, double key);
+
 }

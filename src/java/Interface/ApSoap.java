@@ -204,4 +204,9 @@ public class ApSoap implements ApInterface {
         }
     }
 
+    @Override
+    public List<DTOOrderReceived> findOrdersByClientId(Long id, double key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

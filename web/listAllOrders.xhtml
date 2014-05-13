@@ -9,9 +9,8 @@
     <ui:define name="content">
         <h1>Orders History</h1>
         <h:form id="allOrders">
-            <h:outputText value="ApiKey---->"/>
-            <h:outputText value="#{productController.sessionBean.apiKey}"/>
-            <p:dataTable id="allProds" var="order" value="#{orderController.allOrders}" paginator="true" rows="10">
+
+            <p:dataTable id="allProds" var="order" value="#{orderController.allOrders()}" paginator="true" rows="10">
 
                 <f:facet name="header">
                     Orders History
