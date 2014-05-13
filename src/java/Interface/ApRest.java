@@ -130,7 +130,7 @@ public class ApRest implements ApInterface {
     @Override
     public double login(String email, String password) {
         WebTarget resource = webTargetClient;
-        resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{email}));
+        resource = resource.path(java.text.MessageFormat.format("login/{0}", new Object[]{email}));
         double key = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("password", password).get(new GenericType<Double>() {
         });
         return key;
@@ -179,7 +179,6 @@ public class ApRest implements ApInterface {
     public List<DTOOrderItem> findAllOrderItems(Long id, double key) {
         WebTarget resource = webTargetOrderItem;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
-        resource = resource.path("find-order-by-client");
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOOrderItem>>() {
         });
     }
@@ -187,6 +186,7 @@ public class ApRest implements ApInterface {
     @Override
     public List<DTOOrderReceived> findOrdersByClientId(double key) {
         WebTarget resource = webTargetOrder;
+        resource = resource.path("find-order-by-client");
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOOrderReceived>>() {
         });
     }
