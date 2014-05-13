@@ -1,20 +1,42 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/styles.css"/>
+        <title>Facelets Template</title>
+    </h:head>
 
-    <h:form>
-        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-        <h:outputText value="Email"/>
-        <p:inputText id="mail" value="#{userController.email}"/>
+    <div id="top" class="top">
+        <h:form id="form">
+            <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                <p:selectOneRadio id="options" value="#{settings.isSoap}" >
+                    <f:selectItem itemLabel="SOAP" itemValue="true" />
+                    <f:selectItem itemLabel="REST" itemValue="false" />
+                    <p:ajax process="@form" event="change" />
+                </p:selectOneRadio>
+            </h:panelGrid>
+        </h:form>
+    </div>
 
-        <h:outputText value="Password"/>
-        <p:password id="password" value="#{userController.password}"/>
-        <p:commandButton value="Login" action="#{userController.makeLogin()}" ajax="false"/>
+    <div>
+        <h:form>
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <h:outputText value="Email"/>
+            <p:inputText id="mail" value="#{userController.email}"/>
 
-    </h:form>
+            <h:outputText value="Password"/>
+            <p:password id="password" value="#{userController.password}"/>
+            <p:commandButton value="Login" action="#{userController.makeLogin()}" ajax="false"/>
 
+        </h:form>
+    </div>
 
-</ui:composition>
+</html>
