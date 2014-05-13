@@ -117,8 +117,8 @@ public class SearchController implements Serializable {
     }
 
     public void findProductById() {
-        Long id = Long.parseLong(search);
         try {
+            Long id = Long.parseLong(search);
             selectedProduct = settings.getApiService().findProductById(id, settings.getApiKey());
 
             selectedList.clear();
@@ -126,7 +126,11 @@ public class SearchController implements Serializable {
             selectedList.add(selectedProduct);
 
         } catch (ProductException ex) {
+
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
+        } catch (NumberFormatException e) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Just numbers please"));
         }
     }
 
@@ -154,20 +158,25 @@ public class SearchController implements Serializable {
      */
     public void searchMethod() {
 
-        switch (choice) {
+        try {
+            switch (choice) {
 
-            case 1:
-                findProductByDesignation();
-                break;
-            case 2:
-                findProductByDescription();
-                break;
-            case 3:
-                findProductByCategory();
-                break;
-            case 4:
-                findProductById();
-                break;
+                case 1:
+                    findProductByDesignation();
+                    break;
+                case 2:
+                    findProductByDescription();
+                    break;
+                case 3:
+                    findProductByCategory();
+                    break;
+                case 4:
+                    findProductById();
+                    break;
+            }
+        } catch (Exception e) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Just numbers please"));
         }
 
     }

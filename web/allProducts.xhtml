@@ -42,7 +42,7 @@
                 </p:column>
 
                 <p:column headerText="Price" >
-                    #{product.sellPrice}
+                    #{product.sellPrice}€
                 </p:column>
 
                 <p:column headerText="Add to cart" >
@@ -95,10 +95,24 @@
                     #{product.quantity}
                 </p:column>
 
+                <p:column headerText="Price">
+                    #{product.price}€
+                </p:column>
+
                 <f:facet name="footer">
                     <p:commandButton ajax="false" id="multiViewButton" value="Place Order" icon="ui-icon-search"
                                      action="#{productController.finishOrder()}"/>
                 </f:facet>
+
+                <p:summaryRow>
+                    <p:column colspan="3" style="text-align:right">
+                        Total:
+                    </p:column>
+
+                    <p:column>
+                        #{productController.totalPrice}€
+                    </p:column>
+                </p:summaryRow>
             </p:dataTable>
 
         </h:form>
