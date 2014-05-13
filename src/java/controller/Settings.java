@@ -6,35 +6,45 @@
 package controller;
 
 import Interface.ApInterface;
+import Interface.ApRest;
 import Interface.ApSoap;
 import java.io.Serializable;
-import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
 /**
  *
  * @author Guilherme Pereira
  */
-@Stateful
+@Named
+
 @SessionScoped
 public class Settings implements Serializable {
 
     double apiKey;
-    Boolean isSoap;
+    boolean isSoap;
+
+    public Settings() {
+        this.isSoap = true;
+    }
 
     /**
      * Creates a new instance of Settings
      */
-    public Settings() {
-
+    public ApInterface getApiService() {
+        if (isSoap) {
+            return new ApSoap();
+        } else {
+            return new ApRest();
+        }
     }
 
-    public ApInterface getApiService() {
-//        if (isSoap) {
-        return new ApSoap();
-//        } else {
-//        return new ApRest();
-//        }
+    public boolean isIsSoap() {
+        return isSoap;
+    }
+
+    public void setIsSoap(boolean isSoap) {
+        this.isSoap = isSoap;
     }
 
     public double getApiKey() {

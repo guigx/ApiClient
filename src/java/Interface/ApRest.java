@@ -126,7 +126,8 @@ public class ApRest implements ApInterface {
     public double login(String email, String password) {
         WebTarget resource = webTargetClient;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{email}));
-        double key = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("password", password).get(Double.class);
+        double key = resource.request(javax.ws.rs.core.MediaType.TEXT_PLAIN).header("password", password).get(new GenericType<Double>() {
+        });
         return key;
     }
 
