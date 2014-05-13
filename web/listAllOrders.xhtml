@@ -29,7 +29,7 @@
                 </p:column>
 
                 <p:column headerText="View Items" >
-                    <p:commandButton icon="ui-icon-search" type="button" oncomplete="PF('dlg2').show();" update=":itemsModal:itemsDialog">
+                    <p:commandButton icon="ui-icon-search" type="button" onclick="PF('dlg2').show();" update=":itemsModal:itemsDialog">
                         <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
                     </p:commandButton>
                 </p:column>
@@ -42,9 +42,9 @@
         </h:form>
 
         <h:form id="itemsModal">
-            <p:dialog id="itemsDialog" header="Quantity" widgetVar="dlg2" modal="true" height="100">
+            <p:dialog id="itemsDialog" rendered="#{orderController.popRender}" header="Quantity" widgetVar="dlg2" modal="true" height="100">
 
-                <p:dataTable id="orderItems" var="orderItem" value="#{orderController.allOrderItems}" paginator="true" rows="10">
+                <p:dataTable id="orderItems" var="orderItem" value="#{orderController.allOrderItems()}" paginator="true" rows="10">
                     <f:facet name="header">
                         Order No #{orderController.orderSelected} items
                     </f:facet>

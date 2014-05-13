@@ -6,6 +6,7 @@
 package controller;
 
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -24,8 +25,15 @@ public class OrderController {
     private Settings sessionBean;
     private Long orderSelected;
     private double totalOrderPrice;
+    private boolean popRender;
 
     public OrderController() {
+    }
+
+    @PostConstruct
+    public void init() {
+
+        popRender = false;
     }
 
     //Getter´s and Setter´s
@@ -53,6 +61,14 @@ public class OrderController {
         this.totalOrderPrice = totalOrderPrice;
     }
 
+    public boolean isPopRender() {
+        return popRender;
+    }
+
+    public void setPopRender(boolean popRender) {
+        this.popRender = popRender;
+    }
+
     //Methods
     /**
      * Return order history
@@ -61,10 +77,11 @@ public class OrderController {
      */
     public List<DTOOrderReceived> allOrders() {
 
-        return sessionBean.getApiService().findAllOrders(sessionBean.getApiKey());
+        return sessionBean.getApiService().findOrdersByClientId(sessionBean.getApiKey());
     }
 
     public List<DTOOrderItem> allOrderItems() {
+        popRender = true;
 
         List<DTOOrderItem> list = sessionBean.getApiService().findAllOrderItems(orderSelected, sessionBean.getApiKey());
 
