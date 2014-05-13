@@ -9,16 +9,17 @@ import DTOConverter.DTOConverter;
 import Exception.ProductException;
 import Soap.ClientNotFoundException_Exception;
 import Soap.LoginInvalidateException_Exception;
-import Soap.MakeOrder;
 import Soap.OrderNotCreatedException_Exception;
 import Soap.OrderNotFoundException_Exception;
 import Soap.ProductNotFoundException_Exception;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import pojos.DTOItem;
 import pojos.OrderReceived;
 import pojos.Product;
 
@@ -128,21 +129,24 @@ public class ApSoap implements ApInterface {
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
         try {
-            return port.login(email, password);
+            double result = port.login(email, password);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Order Successfuly completed"));
+            return result;
         } catch (LoginInvalidateException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Order not completed"));
             return -1.0;
         }
     }
 
     @Override
-    public String makeOrder(Map<Long, Integer> map, double key) {
+    public String makeOrder(List<DTOItem> items, double key) {
 
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
         try {
-
-            return port.makeOrder((MakeOrder.Map) map, key);
+            //DTOConverter.convertListItemSoap(items);
+            return port.makeOrder(DTOConverter.convertListItemSoap(items), key);
         } catch (OrderNotCreatedException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             return "Order not created";

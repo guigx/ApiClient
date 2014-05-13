@@ -8,10 +8,10 @@ package Interface;
 import Exception.ProductException;
 import controller.Settings;
 import java.util.List;
-import java.util.Map;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
+import pojos.DTOItem;
 import pojos.OrderReceived;
 import pojos.Product;
 
@@ -141,9 +141,9 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public String makeOrder(Map<Long, Integer> map, double Key) {
+    public String makeOrder(List<DTOItem> items, double Key) {
         //String json= new Gson().toJson(map);
-        return webTargetOrder.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(map, javax.ws.rs.core.MediaType.APPLICATION_JSON), String.class);
+        return webTargetOrder.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(items, javax.ws.rs.core.MediaType.APPLICATION_JSON), String.class);
     }
 
     @Override

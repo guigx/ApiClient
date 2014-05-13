@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import pojos.Client;
+import pojos.DTOItem;
 import pojos.OrderReceived;
 import pojos.Product;
 
@@ -85,5 +86,39 @@ public class DTOConverter {
         newClient.setName(client.getName());
         newClient.setPassword(client.getPassword());
         return newClient;
+    }
+
+    public static DTOItem convertItem(Soap.Item item) {
+        DTOItem newItem = new DTOItem();
+        newItem.setProductId(item.getProductId());
+        newItem.setName(item.getName());
+        newItem.setQuantity(item.getQuantity());
+        return newItem;
+
+    }
+
+    public static Soap.Item convertItemSoap(DTOItem item) {
+        Soap.Item newItem = new Soap.Item();
+        newItem.setProductId(item.getProductId());
+        newItem.setName(item.getName());
+        newItem.setQuantity(item.getQuantity());
+        return newItem;
+
+    }
+
+    public static List<Soap.Item> convertListItemSoap(List<DTOItem> items) {
+
+        List<Soap.Item> newList = new ArrayList();
+
+        for (DTOItem i : items) {
+
+            Soap.Item newItem = new Soap.Item();
+            newItem.setProductId(i.getProductId());
+            newItem.setName(i.getName());
+            newItem.setQuantity(i.getQuantity());
+            newList.add(newItem);
+        }
+
+        return newList;
     }
 }

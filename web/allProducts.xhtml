@@ -45,20 +45,14 @@
                     #{product.sellPrice}
                 </p:column>
 
-                <p:column headerText="Add to cart">
-                    <p:spinner id="minmax"
-                               value="#{productController.quantity}" min="0" max="#{product.stockQtt}"/>
-                </p:column>
-
                 <p:column headerText="Add to cart" >
-                    <p:commandLink value="add to cart" action="#{productController.addToCart(product)}">
-                        <f:ajax event="click" render=":cartTable:allProds"/>
+                    <p:commandLink value="add to cart" type="button" oncomplete="PF('dlg2').show();" update=":qttModal:modalDialog">
+                        <f:setPropertyActionListener value="#{product}" target="#{productController.productSelected}"/>
                     </p:commandLink>
+
                 </p:column>
 
                 <f:facet name="footer">
-                    <!--                    <p:commandButton id="multiViewButton" value="Place Order" icon="ui-icon-search"
-                                                         update=":form:displayMulti" oncomplete="PF('multiCarDialog').show()"/>-->
                 </f:facet>
             </p:dataTable>
 
@@ -67,8 +61,21 @@
         <br></br>
         <br></br>
 
+        <h:form id="qttModal">
+            <p:dialog id="modalDialog" header="Quantity" widgetVar="dlg2" modal="true" height="100">
+                <p:spinner id="minmax" value="#{productController.quantity}" min="1"/>
+                <br></br>
+                <p:commandButton value="add to cart" action="#{productController.addToCart()}" onclick="PF('dlg2').hide();">
+                    <f:ajax event="click" render=":cartTable:allProds"/>
+                </p:commandButton>
+            </p:dialog>
+
+        </h:form>
+
+        <h1>Order Table</h1>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <h:form id="cartTable">
-            <p:dataTable id="allProds" var="product" value="#{productController.cart}" paginator="true" rows="10">
+            <p:dataTable id="allProds" var="product" value="#{productController.items}" paginator="true" rows="10">
 
                 <f:facet name="header">
                     Cart
@@ -77,31 +84,19 @@
                 <!--                <p:column headerText="Select" selectionMode="multiple" style="width:4%" />-->
 
                 <p:column headerText="ID">
-                    #{product.id}
+                    #{product.productId}
                 </p:column>
 
-                <p:column headerText="Category">
-                    #{product.category}
+                <p:column headerText="Name">
+                    #{product.name}
                 </p:column>
 
-                <p:column headerText="Brand">
-                    #{product.brand}
-                </p:column>
-
-                <p:column headerText="Model">
-                    #{product.model}
-                </p:column>
-
-                <p:column headerText="Version">
-                    #{product.version}
-                </p:column>
-
-                <p:column headerText="Price">
-                    #{product.sellPrice}
+                <p:column headerText="Quantity">
+                    #{product.quantity}
                 </p:column>
 
                 <f:facet name="footer">
-                    <p:commandButton id="multiViewButton" value="Place Order" icon="ui-icon-search"
+                    <p:commandButton ajax="false" id="multiViewButton" value="Place Order" icon="ui-icon-search"
                                      action="#{productController.finishOrder()}"/>
                 </f:facet>
             </p:dataTable>

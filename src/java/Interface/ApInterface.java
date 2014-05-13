@@ -7,7 +7,7 @@ package Interface;
 
 import Exception.ProductException;
 import java.util.List;
-import java.util.Map;
+import pojos.DTOItem;
 import pojos.OrderReceived;
 import pojos.Product;
 
@@ -36,7 +36,7 @@ public interface ApInterface {
 
     public double login(String email, String password);
 
-    public String makeOrder(Map<Long, Integer> map, double key);
+    public String makeOrder(List<DTOItem> items, double key);
 
     public OrderReceived findOrderById(Long id, double key);
 
