@@ -2,7 +2,10 @@ package controller;
 
 import Exception.ProductException;
 import Interface.ApRest;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -12,7 +15,7 @@ import pojos.Product;
 
 @Named
 @ViewScoped
-public class SearchController {
+public class SearchController implements Serializable {
 
     String result;
     List<Product> selectedList;
@@ -28,6 +31,12 @@ public class SearchController {
     //Getter´s and Setter´s
     public Product getSelectedProduct() {
         return selectedProduct;
+    }
+
+    @PostConstruct
+    public void init() {
+
+        selectedList = new ArrayList();
     }
 
     public void setSelectedProduct(Product selectedProduct) {
@@ -111,6 +120,11 @@ public class SearchController {
         Long id = Long.parseLong(search);
         try {
             selectedProduct = settings.getApiService().findProductById(id, settings.getApiKey());
+
+            selectedList.clear();
+
+            selectedList.add(selectedProduct);
+
         } catch (ProductException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
         }
@@ -135,6 +149,9 @@ public class SearchController {
         }
     }
 
+    /**
+     *
+     */
     public void searchMethod() {
 
         switch (choice) {

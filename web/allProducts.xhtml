@@ -9,7 +9,7 @@
 
     <ui:define name="content">
         <h1>All Products</h1>
-        <h:form>
+        <h:form id="allProducts">
             <h:outputText value="ApiKey---->"/>
             <h:outputText value="#{productController.sessionBean.apiKey}"/>
             <p:dataTable id="allProds" var="product" value="#{productController.allProducts()}" paginator="true" rows="10"
@@ -21,45 +21,88 @@
 
                 <!--                <p:column headerText="Select" selectionMode="multiple" style="width:4%" />-->
 
-                <p:column headerText="ID" style="width:24%">
+                <p:column headerText="ID" >
                     #{product.id}
                 </p:column>
 
-                <p:column headerText="Category" style="width:24%">
+                <p:column headerText="Category" >
                     #{product.category}
                 </p:column>
 
-                <p:column headerText="Brand" style="width:24%">
+                <p:column headerText="Brand" >
                     #{product.brand}
                 </p:column>
 
-                <p:column headerText="Model" style="width:24%">
+                <p:column headerText="Model" >
                     #{product.model}
                 </p:column>
 
-                <p:column headerText="Version" style="width:24%">
+                <p:column headerText="Version" >
                     #{product.version}
                 </p:column>
 
-                <p:column headerText="Description" style="width:24%">
-                    #{product.description}
-                </p:column>
-
-                <p:column headerText="Stock Quantity" style="width:24%">
-                    #{product.stockQtt}
-                </p:column>
-
-                <p:column headerText="Reposition Date" style="width:24%">
-                    #{product.repoDate}
-                </p:column>
-
-                <p:column headerText="Price" style="width:24%">
+                <p:column headerText="Price" >
                     #{product.sellPrice}
+                </p:column>
+
+                <p:column headerText="Add to cart">
+                    <p:spinner id="minmax"
+                               value="#{productController.quantity}" min="0" max="#{product.stockQtt}"/>
+                </p:column>
+
+                <p:column headerText="Add to cart" >
+                    <p:commandLink value="add to cart" action="#{productController.addToCart(product)}">
+                        <f:ajax event="click" render=":cartTable:allProds"/>
+                    </p:commandLink>
                 </p:column>
 
                 <f:facet name="footer">
                     <!--                    <p:commandButton id="multiViewButton" value="Place Order" icon="ui-icon-search"
                                                          update=":form:displayMulti" oncomplete="PF('multiCarDialog').show()"/>-->
+                </f:facet>
+            </p:dataTable>
+
+        </h:form>
+
+        <br></br>
+        <br></br>
+
+        <h:form id="cartTable">
+            <p:dataTable id="allProds" var="product" value="#{productController.cart}" paginator="true" rows="10">
+
+                <f:facet name="header">
+                    Cart
+                </f:facet>
+
+                <!--                <p:column headerText="Select" selectionMode="multiple" style="width:4%" />-->
+
+                <p:column headerText="ID">
+                    #{product.id}
+                </p:column>
+
+                <p:column headerText="Category">
+                    #{product.category}
+                </p:column>
+
+                <p:column headerText="Brand">
+                    #{product.brand}
+                </p:column>
+
+                <p:column headerText="Model">
+                    #{product.model}
+                </p:column>
+
+                <p:column headerText="Version">
+                    #{product.version}
+                </p:column>
+
+                <p:column headerText="Price">
+                    #{product.sellPrice}
+                </p:column>
+
+                <f:facet name="footer">
+                    <p:commandButton id="multiViewButton" value="Place Order" icon="ui-icon-search"
+                                     action="#{productController.finishOrder()}"/>
                 </f:facet>
             </p:dataTable>
 

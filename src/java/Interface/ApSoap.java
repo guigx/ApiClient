@@ -141,6 +141,7 @@ public class ApSoap implements ApInterface {
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
         try {
+
             return port.makeOrder((MakeOrder.Map) map, key);
         } catch (OrderNotCreatedException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,10 +155,7 @@ public class ApSoap implements ApInterface {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
             return DTOConverter.convertOrder(port.findOrder(id, key));
-        } catch (ClientNotFoundException_Exception ex) {
-            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (OrderNotFoundException_Exception ex) {
+        } catch (ClientNotFoundException_Exception | OrderNotFoundException_Exception ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
