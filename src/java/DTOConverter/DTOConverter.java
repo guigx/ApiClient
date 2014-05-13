@@ -93,6 +93,7 @@ public class DTOConverter {
         newItem.setProductId(item.getProductId());
         newItem.setName(item.getName());
         newItem.setQuantity(item.getQuantity());
+        newItem.setPrice(item.getQuantity() * item.getPrice());
         return newItem;
 
     }
@@ -102,6 +103,7 @@ public class DTOConverter {
         newItem.setProductId(item.getProductId());
         newItem.setName(item.getName());
         newItem.setQuantity(item.getQuantity());
+        newItem.setPrice(item.getQuantity() * item.getPrice());
         return newItem;
 
     }
@@ -116,6 +118,7 @@ public class DTOConverter {
             newItem.setProductId(i.getProductId());
             newItem.setName(i.getName());
             newItem.setQuantity(i.getQuantity());
+            newItem.setPrice((i.getPrice() * i.getQuantity()));
             newList.add(newItem);
         }
 

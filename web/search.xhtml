@@ -9,7 +9,7 @@
 
 
     <ui:define name="content">
-
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <h:form>
             <p:inputText value="#{searchController.search}" />
             <br></br>
@@ -37,27 +37,27 @@
 
                 <!--                <p:column headerText="Select" selectionMode="multiple" style="width:4%" />-->
 
-                <p:column headerText="ID" style="width:24%">
+                <p:column headerText="ID">
                     #{product.id}
                 </p:column>
 
-                <p:column headerText="Category" style="width:24%">
+                <p:column headerText="Category">
                     #{product.category}
                 </p:column>
 
-                <p:column headerText="Brand" style="width:24%">
+                <p:column headerText="Brand">
                     #{product.brand}
                 </p:column>
 
-                <p:column headerText="Model" style="width:24%">
+                <p:column headerText="Model">
                     #{product.model}
                 </p:column>
 
-                <p:column headerText="Version" style="width:24%">
+                <p:column headerText="Version">
                     #{product.version}
                 </p:column>
 
-                <p:column headerText="Description" style="width:24%">
+                <p:column headerText="Description">
                     #{product.description}
                 </p:column>
 

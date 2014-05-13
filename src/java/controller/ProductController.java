@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -33,6 +35,7 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
     private boolean cartRendered;
     private int quantity;
     private Product productSelected;
+    private double totalPrice;
     @Inject
     private Settings sessionBean;
 
@@ -97,6 +100,18 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
         this.productSelected = productSelected;
     }
 
+    public double getTotalPrice() {
+        for (DTOItem i : items) {
+
+            totalPrice += i.getPrice();
+        }
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     /**
      * Return all products in database.
      *
@@ -123,8 +138,13 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
 
     public void finishOrder() {
 
-        sessionBean.getApiService().makeOrder(items, sessionBean.getApiKey());
+        String s = sessionBean.getApiService().makeOrder(items, sessionBean.getApiKey());
+        if (s.equalsIgnoreCase("Order not created")) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Order not completed"));
+        }
         items.clear();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Order Successfuly completed"));
+
     }
 
     @Override
