@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import pojos.DTOClient;
 import pojos.DTOItem;
+import pojos.DTOOrderItem;
 import pojos.DTOOrderReceived;
 import pojos.DTOProduct;
 
@@ -125,17 +126,17 @@ public class DTOConverter {
         return newList;
     }
 
-    public static List<DTOItem> convertListDtoItemToSoapItems(List<Soap.Item> items) {
+    public static List<DTOOrderItem> convertListDtoItemToSoapItems(List<Soap.OrderItems> items) {
 
-        List<DTOItem> newList = new ArrayList();
+        List<DTOOrderItem> newList = new ArrayList();
 
-        for (Soap.Item i : items) {
+        for (Soap.OrderItems i : items) {
 
-            DTOItem newItem = new DTOItem();
+            DTOOrderItem newItem = new DTOOrderItem();
             newItem.setProductId(i.getProductId());
-            newItem.setName(i.getName());
+            newItem.setProductName(i.getProductName());
             newItem.setQuantity(i.getQuantity());
-            newItem.setPrice((i.getPrice() * i.getQuantity()));
+            newItem.setPrice(i.getPrice());
             newList.add(newItem);
         }
 

@@ -8,6 +8,7 @@ package Interface;
 import Exception.ProductException;
 import java.util.List;
 import pojos.DTOItem;
+import pojos.DTOOrderItem;
 import pojos.DTOOrderReceived;
 import pojos.DTOProduct;
 
@@ -44,6 +45,6 @@ public interface ApInterface {
 
     public List<DTOOrderReceived> findAllOrders(double key);
 
-    public List<DTOItem> findAllOrderItems(Long id, double key);
+    public List<DTOOrderItem> findAllOrderItems(Long id, double key);
 
 }

@@ -8,6 +8,7 @@ package Interface;
 import DTOConverter.DTOConverter;
 import Exception.ProductException;
 import Soap.ClientNotFoundException_Exception;
+import Soap.ItemNotFoundException_Exception;
 import Soap.LoginInvalidateException_Exception;
 import Soap.OrderNotCreatedException_Exception;
 import Soap.OrderNotFoundException_Exception;
@@ -20,6 +21,7 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import pojos.DTOItem;
+import pojos.DTOOrderItem;
 import pojos.DTOOrderReceived;
 import pojos.DTOProduct;
 
@@ -190,11 +192,19 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public List<DTOItem> findAllOrderItems(Long id, double key) {
+    public List<DTOOrderItem> findAllOrderItems(Long id, double key) {
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
-        return null;
-        //return DTOConverter.convertListDtoItemToSoapItems(port.findOrderItems(id, key));
+        try {
+            //return null;
+            return DTOConverter.convertListDtoItemToSoapItems(port.findOrderItems(id, key));
+        } catch (ClientNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return new ArrayList();
+        } catch (ItemNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return new ArrayList();
+        }
     }
 
 }
