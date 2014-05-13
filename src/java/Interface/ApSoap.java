@@ -13,6 +13,7 @@ import Soap.MakeOrder;
 import Soap.OrderNotCreatedException_Exception;
 import Soap.OrderNotFoundException_Exception;
 import Soap.ProductNotFoundException_Exception;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class ApSoap implements ApInterface {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
             return DTOConverter.convertProductList(port.findProductsByCategory(category, key));
-        } catch (ProductNotFoundException_Exception ex) {
+        } catch (ProductNotFoundException_Exception | ParseException ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             throw new ProductException();
         }
@@ -51,9 +52,9 @@ public class ApSoap implements ApInterface {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
             return DTOConverter.convertProductList(port.findAllProducts(key));
-        } catch (ProductNotFoundException_Exception ex) {
+        } catch (ProductNotFoundException_Exception | ParseException ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
-            throw new ProductException();
+            return new ArrayList();
         }
     }
 
@@ -63,7 +64,7 @@ public class ApSoap implements ApInterface {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
             return DTOConverter.convertProductList(port.findProductsByDescription(description, key));
-        } catch (ProductNotFoundException_Exception ex) {
+        } catch (ProductNotFoundException_Exception | ParseException ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             throw new ProductException();
         }
@@ -75,7 +76,7 @@ public class ApSoap implements ApInterface {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
             return DTOConverter.convertProductList(port.findProductByDesignation(designation, key));
-        } catch (ProductNotFoundException_Exception ex) {
+        } catch (ProductNotFoundException_Exception | ParseException ex) {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             throw new ProductException();
         }

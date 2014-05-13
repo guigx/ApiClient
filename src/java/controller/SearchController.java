@@ -3,15 +3,15 @@ package controller;
 import Exception.ProductException;
 import Interface.ApRest;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pojos.Product;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class SearchController {
 
     String result;
@@ -19,6 +19,7 @@ public class SearchController {
     Product selectedProduct;
 
     private String search;
+    private int choice;
 
     @Inject
     Settings settings;
@@ -63,6 +64,14 @@ public class SearchController {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public int getChoice() {
+        return choice;
+    }
+
+    public void setChoice(int choice) {
+        this.choice = choice;
     }
 
     //Methods
@@ -124,6 +133,26 @@ public class SearchController {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Product Not Found"));
             return 0;
         }
+    }
+
+    public void searchMethod() {
+
+        switch (choice) {
+
+            case 1:
+                findProductByDesignation();
+                break;
+            case 2:
+                findProductByDescription();
+                break;
+            case 3:
+                findProductByCategory();
+                break;
+            case 4:
+                findProductById();
+                break;
+        }
+
     }
 
 }
