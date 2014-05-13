@@ -14,6 +14,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.GenericType;
 import pojos.DTOItem;
+import pojos.DTOOrderItem;
 import pojos.DTOOrderReceived;
 import pojos.DTOProduct;
 
@@ -172,7 +173,7 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<DTOItem> findAllOrderItems(Long id, double key) {
+    public List<DTOOrderItem> findAllOrderItems(Long id, double key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
