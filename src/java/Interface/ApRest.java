@@ -36,6 +36,7 @@ public class ApRest implements ApInterface {
     Settings settings;
     private WebTarget webTargetProduct;
     private WebTarget webTargetOrder;
+    private WebTarget webTargetOrderItem;
     private WebTarget webTargetClient;
     private Client client;
     private static final String BASE_URI = "http://localhost:8080/TecnoApi/webresources";
@@ -45,6 +46,7 @@ public class ApRest implements ApInterface {
         webTargetProduct = client.target(BASE_URI).path("product");
         webTargetOrder = client.target(BASE_URI).path("orderreceived");
         webTargetClient = client.target(BASE_URI).path("client");
+        webTargetOrderItem = client.target(BASE_URI).path("orderitems");
     }
 
     @Override
@@ -174,6 +176,9 @@ public class ApRest implements ApInterface {
 
     @Override
     public List<DTOOrderItem> findAllOrderItems(Long id, double key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        WebTarget resource = webTargetOrderItem;
+        resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
+        return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOOrderItem>>() {
+        });
     }
 }
