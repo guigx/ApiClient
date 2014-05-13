@@ -9,7 +9,9 @@ import Exception.ProductException;
 import controller.Settings;
 import java.util.List;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.GenericType;
 import pojos.DTOItem;
 import pojos.DTOOrderReceived;
@@ -141,9 +143,11 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public String makeOrder(List<DTOItem> items, double Key) {
-        //String json= new Gson().toJson(map);
-        return webTargetOrder.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).post(javax.ws.rs.client.Entity.entity(items, javax.ws.rs.core.MediaType.APPLICATION_JSON), String.class);
+    public String makeOrder(List<DTOItem> items, double key) {
+        GenericEntity<List<DTOItem>> entity = new GenericEntity<List<DTOItem>>(items) {
+        };
+        return webTargetOrder.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key)
+                .post(Entity.entity(entity, javax.ws.rs.core.MediaType.APPLICATION_JSON), String.class);
     }
 
     @Override
