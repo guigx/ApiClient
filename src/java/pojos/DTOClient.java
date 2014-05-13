@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author Zueb LDA
  */
-public class Client {
+public class DTOClient {
 
     private Long id;
 
@@ -23,9 +23,9 @@ public class Client {
 
     private double apiKey;
 
-    private List<OrderReceived> orders;
+    private List<DTOOrderReceived> orders;
 
-    public Client() {
+    public DTOClient() {
     }
 
     public Long getId() {
@@ -68,11 +68,11 @@ public class Client {
         this.apiKey = apiKey;
     }
 
-    public List<OrderReceived> getOrders() {
+    public List<DTOOrderReceived> getOrders() {
         return orders;
     }
 
-    public void setOrders(List<OrderReceived> orders) {
+    public void setOrders(List<DTOOrderReceived> orders) {
         this.orders = orders;
     }
 

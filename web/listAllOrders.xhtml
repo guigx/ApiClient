@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./template/clientTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1>Orders History</h1>
+        <h:form id="allOrders">
+            <h:outputText value="ApiKey---->"/>
+            <h:outputText value="#{productController.sessionBean.apiKey}"/>
+            <p:dataTable id="allProds" var="order" value="#{orderController.allOrders}" paginator="true" rows="10">
+
+                <f:facet name="header">
+                    Orders History
+                </f:facet>
+
+                <p:column headerText="Order ID" >
+                    #{order.id}
+                </p:column>
+
+                <p:column headerText="Order Date" >
+                    #{order.orderDate}
+                </p:column>
+
+                <p:column headerText="Delivery Date" >
+                    #{order.deliveryDate}
+                </p:column>
+
+                <p:column headerText="View Items" >
+                    <p:commandButton icon="ui-icon-search" type="button" oncomplete="PF('dlg2').show();" update=":itemsModal:itemsDialog">
+                        <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
+                    </p:commandButton>
+                </p:column>
+
+
+                <f:facet name="footer">
+                </f:facet>
+            </p:dataTable>
+
+        </h:form>
+
+
+        <h:form id="itemsModal">
+            <p:dialog id="itemsDialog" header="Quantity" widgetVar="dlg2" modal="true" height="100">
+
+                <p:dataTable id="orderItems" var="orderItem" value="#{orderController.allOrders}"
+
+        </p:dialog>
+
+    </h:form>
+
+</ui:define>
+
+</ui:composition>

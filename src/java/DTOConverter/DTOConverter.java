@@ -9,10 +9,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import pojos.Client;
+import pojos.DTOClient;
 import pojos.DTOItem;
-import pojos.OrderReceived;
-import pojos.Product;
+import pojos.DTOOrderReceived;
+import pojos.DTOProduct;
 
 /**
  *
@@ -20,10 +20,10 @@ import pojos.Product;
  */
 public class DTOConverter {
 
-    public static List<Product> convertProductList(List<Soap.Product> productListSoap) throws ParseException {
-        List<Product> productList = new ArrayList<>();
+    public static List<DTOProduct> convertProductList(List<Soap.Product> productListSoap) throws ParseException {
+        List<DTOProduct> productList = new ArrayList<>();
         for (Soap.Product p : productListSoap) {
-            Product newProduct = new Product();
+            DTOProduct newProduct = new DTOProduct();
             newProduct.setId(p.getId());
             newProduct.setBrand(p.getBrand());
             newProduct.setCategory(p.getCategory());
@@ -41,8 +41,8 @@ public class DTOConverter {
         return productList;
     }
 
-    public static Product convertProduct(Soap.Product p) {
-        Product newProduct = new Product();
+    public static DTOProduct convertProduct(Soap.Product p) {
+        DTOProduct newProduct = new DTOProduct();
         newProduct.setId(p.getId());
         newProduct.setBrand(p.getBrand());
         newProduct.setCategory(p.getCategory());
@@ -56,10 +56,10 @@ public class DTOConverter {
         return newProduct;
     }
 
-    public static List<OrderReceived> convertOrderList(List<Soap.OrderReceived> orderListSoap) {
-        List<OrderReceived> orderList = new ArrayList<>();
+    public static List<DTOOrderReceived> convertOrderList(List<Soap.OrderReceived> orderListSoap) {
+        List<DTOOrderReceived> orderList = new ArrayList<>();
         for (Soap.OrderReceived order : orderListSoap) {
-            OrderReceived newOrder = new OrderReceived();
+            DTOOrderReceived newOrder = new DTOOrderReceived();
             newOrder.setId(order.getId());
             newOrder.setClient(convertClient(order.getClient()));
             newOrder.setDeliveryDate(order.getDeliveryDate());
@@ -69,8 +69,8 @@ public class DTOConverter {
         return orderList;
     }
 
-    public static OrderReceived convertOrder(Soap.OrderReceived order) {
-        OrderReceived newOrder = new OrderReceived();
+    public static DTOOrderReceived convertOrder(Soap.OrderReceived order) {
+        DTOOrderReceived newOrder = new DTOOrderReceived();
         newOrder.setId(order.getId());
         newOrder.setClient(convertClient(order.getClient()));
         newOrder.setDeliveryDate(order.getDeliveryDate());
@@ -78,8 +78,8 @@ public class DTOConverter {
         return newOrder;
     }
 
-    public static Client convertClient(Soap.Client client) {
-        Client newClient = new Client();
+    public static DTOClient convertClient(Soap.Client client) {
+        DTOClient newClient = new DTOClient();
         newClient.setId(client.getId());
         newClient.setApiKey(client.getApiKey());
         newClient.setEmail(client.getEmail());
@@ -115,6 +115,23 @@ public class DTOConverter {
         for (DTOItem i : items) {
 
             Soap.Item newItem = new Soap.Item();
+            newItem.setProductId(i.getProductId());
+            newItem.setName(i.getName());
+            newItem.setQuantity(i.getQuantity());
+            newItem.setPrice((i.getPrice() * i.getQuantity()));
+            newList.add(newItem);
+        }
+
+        return newList;
+    }
+
+    public static List<DTOItem> convertListDtoItemToSoapItems(List<Soap.Item> items) {
+
+        List<DTOItem> newList = new ArrayList();
+
+        for (Soap.Item i : items) {
+
+            DTOItem newItem = new DTOItem();
             newItem.setProductId(i.getProductId());
             newItem.setName(i.getName());
             newItem.setQuantity(i.getQuantity());

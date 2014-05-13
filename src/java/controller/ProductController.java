@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.SelectableDataModel;
 import pojos.DTOItem;
-import pojos.Product;
+import pojos.DTOProduct;
 
 /**
  *
@@ -27,14 +27,15 @@ import pojos.Product;
  */
 @Named
 @ViewScoped
-public class ProductController implements Serializable, SelectableDataModel<Product> {
+public class ProductController implements Serializable, SelectableDataModel<DTOProduct> {
 
     private static final long serialVersionUID = 1L;
-    private List<Product> selectedProducts;
+    private List<DTOProduct> selectedProducts;
     private List<DTOItem> items;
     private boolean cartRendered;
     private int quantity;
-    private Product productSelected;
+    private DTOProduct productSelected;
+    private DTOItem itemSelected;
     private double totalPrice;
     @Inject
     private Settings sessionBean;
@@ -47,7 +48,7 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
         selectedProducts = new ArrayList();
         items = new ArrayList();
         cartRendered = false;
-        productSelected = new Product();
+        productSelected = new DTOProduct();
 
     }
 
@@ -60,11 +61,11 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
         this.sessionBean = sessionBean;
     }
 
-    public List<Product> getSelectedProducts() {
+    public List<DTOProduct> getSelectedProducts() {
         return selectedProducts;
     }
 
-    public void setSelectedProducts(List<Product> selectedProducts) {
+    public void setSelectedProducts(List<DTOProduct> selectedProducts) {
         this.selectedProducts = selectedProducts;
     }
 
@@ -92,11 +93,11 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
         this.items = items;
     }
 
-    public Product getProductSelected() {
+    public DTOProduct getProductSelected() {
         return productSelected;
     }
 
-    public void setProductSelected(Product productSelected) {
+    public void setProductSelected(DTOProduct productSelected) {
         this.productSelected = productSelected;
     }
 
@@ -112,12 +113,20 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
         this.totalPrice = totalPrice;
     }
 
+    public DTOItem getItemSelected() {
+        return itemSelected;
+    }
+
+    public void setItemSelected(DTOItem itemSelected) {
+        this.itemSelected = itemSelected;
+    }
+
     /**
      * Return all products in database.
      *
      * @return
      */
-    public List<Product> allProducts() {
+    public List<DTOProduct> allProducts() {
         try {
             return sessionBean.getApiService().findAllProducts(sessionBean.getApiKey());
         } catch (ProductException ex) {
@@ -141,19 +150,32 @@ public class ProductController implements Serializable, SelectableDataModel<Prod
         String s = sessionBean.getApiService().makeOrder(items, sessionBean.getApiKey());
         if (s.equalsIgnoreCase("Order not created")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Order not completed"));
+        } else if (items.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Please choose some items to order"));
+        } else {
+            items.clear();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Order Successfuly completed"));
         }
-        items.clear();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Order Successfuly completed"));
 
     }
 
+    public void clearOrder() {
+
+        items.clear();
+    }
+
+    public void deleteFromOrder() {
+
+        items.remove(itemSelected);
+    }
+
     @Override
-    public Object getRowKey(Product t) {
+    public Object getRowKey(DTOProduct t) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Product getRowData(String string) {
+    public DTOProduct getRowData(String string) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

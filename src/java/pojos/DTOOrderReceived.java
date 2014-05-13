@@ -5,7 +5,7 @@
  */
 package pojos;
 
-public class OrderReceived {
+public class DTOOrderReceived {
 
     private Long id;
 
@@ -13,12 +13,12 @@ public class OrderReceived {
 
     private String deliveryDate;
 
-    private Client client;
+    private DTOClient client;
 
-    public OrderReceived() {
+    public DTOOrderReceived() {
     }
 
-    public OrderReceived(Long id, String orderDate, String deliveryDate, Client client) {
+    public DTOOrderReceived(Long id, String orderDate, String deliveryDate, DTOClient client) {
         this.id = id;
         this.orderDate = orderDate;
         this.deliveryDate = deliveryDate;
@@ -49,11 +49,11 @@ public class OrderReceived {
         this.deliveryDate = deliveryDate;
     }
 
-    public Client getClient() {
+    public DTOClient getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(DTOClient client) {
         this.client = client;
     }
 

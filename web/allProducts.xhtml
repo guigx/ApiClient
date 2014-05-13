@@ -65,8 +65,8 @@
             <p:dialog id="modalDialog" header="Quantity" widgetVar="dlg2" modal="true" height="100">
                 <p:spinner id="minmax" value="#{productController.quantity}" min="1"/>
                 <br></br>
-                <p:commandButton value="add to cart" action="#{productController.addToCart()}" onclick="PF('dlg2').hide();">
-                    <f:ajax event="click" render=":cartTable:allProds"/>
+                <p:commandButton value="add to cart" action="#{productController.addToCart()}" onclick="PF('dlg2').hide();" update=":cartTable:allProds">
+                    <!--                    <f:ajax render=":cartTable:allProds"/>-->
                 </p:commandButton>
             </p:dialog>
 
@@ -80,8 +80,6 @@
                 <f:facet name="header">
                     Cart
                 </f:facet>
-
-                <!--                <p:column headerText="Select" selectionMode="multiple" style="width:4%" />-->
 
                 <p:column headerText="ID">
                     #{product.productId}
@@ -99,20 +97,27 @@
                     #{product.price}€
                 </p:column>
 
+                <p:column headerText="Delete/Edit">
+                    <p:commandButton id="deleteOrder" icon="ui-icon-trash" action="#{productController.deleteFromOrder()}" ajax="false">
+                        <f:setPropertyActionListener value="#{product}" target="#{productController.itemSelected}"/>
+                    </p:commandButton>
+
+
+                    <p:commandButton id="editOrder" icon="ui-icon-wrench" ajax="false">
+                        <f:setPropertyActionListener value="#{product}" target="#{productController.itemSelected}"/>
+                    </p:commandButton>
+
+                </p:column>
+
                 <f:facet name="footer">
-                    <p:commandButton ajax="false" id="multiViewButton" value="Place Order" icon="ui-icon-search"
-                                     action="#{productController.finishOrder()}"/>
+                    <div align="center">
+                        <p:commandButton ajax="false" id="multiViewButton" value="Place Order" icon="ui-icon-search"
+                                         action="#{productController.finishOrder()}"/>
+                        <p:commandButton ajax="false" id="cancelButton" value="Clear All" icon="ui-icon-search"
+                                         action="#{productController.clearOrder()}"/>
+                    </div>
                 </f:facet>
 
-                <p:summaryRow>
-                    <p:column colspan="3" style="text-align:right">
-                        Total:
-                    </p:column>
-
-                    <p:column>
-                        #{productController.totalPrice}€
-                    </p:column>
-                </p:summaryRow>
             </p:dataTable>
 
         </h:form>

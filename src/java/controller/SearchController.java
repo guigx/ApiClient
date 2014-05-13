@@ -11,15 +11,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pojos.Product;
+import pojos.DTOProduct;
 
 @Named
 @ViewScoped
 public class SearchController implements Serializable {
 
     String result;
-    List<Product> selectedList;
-    Product selectedProduct;
+    List<DTOProduct> selectedList;
+    DTOProduct selectedProduct;
 
     private String search;
     private int choice;
@@ -29,7 +29,7 @@ public class SearchController implements Serializable {
     ApRest apir;
 
     //Getter´s and Setter´s
-    public Product getSelectedProduct() {
+    public DTOProduct getSelectedProduct() {
         return selectedProduct;
     }
 
@@ -39,15 +39,15 @@ public class SearchController implements Serializable {
         selectedList = new ArrayList();
     }
 
-    public void setSelectedProduct(Product selectedProduct) {
+    public void setSelectedProduct(DTOProduct selectedProduct) {
         this.selectedProduct = selectedProduct;
     }
 
-    public List<Product> getSelectedList() {
+    public List<DTOProduct> getSelectedList() {
         return selectedList;
     }
 
-    public void setSelectedList(List<Product> selectedList) {
+    public void setSelectedList(List<DTOProduct> selectedList) {
         this.selectedList = selectedList;
     }
 

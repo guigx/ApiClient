@@ -9,7 +9,7 @@ package pojos;
  *
  * @author Zueb LDA
  */
-public class Product {
+public class DTOProduct {
 
     private Long id;
 
@@ -29,10 +29,10 @@ public class Product {
 
     private String repoDate;
 
-    public Product() {
+    public DTOProduct() {
     }
 
-    public Product(Long id, String brand, String model, String version, String description, String category, int stockQtt, double sellPrice, String repoDate) {
+    public DTOProduct(Long id, String brand, String model, String version, String description, String category, int stockQtt, double sellPrice, String repoDate) {
         this.id = id;
         this.brand = brand;
         this.model = model;

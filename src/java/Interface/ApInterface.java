@@ -8,8 +8,8 @@ package Interface;
 import Exception.ProductException;
 import java.util.List;
 import pojos.DTOItem;
-import pojos.OrderReceived;
-import pojos.Product;
+import pojos.DTOOrderReceived;
+import pojos.DTOProduct;
 
 /**
  *
@@ -20,15 +20,15 @@ public interface ApInterface {
     /**
      *
      */
-    public List<Product> findProdutByCategory(String category, double key) throws ProductException;
+    public List<DTOProduct> findProdutByCategory(String category, double key) throws ProductException;
 
-    public List<Product> findAllProducts(double key) throws ProductException;
+    public List<DTOProduct> findAllProducts(double key) throws ProductException;
 
-    public List<Product> findProductByDescription(String description, double key) throws ProductException;
+    public List<DTOProduct> findProductByDescription(String description, double key) throws ProductException;
 
-    public List<Product> findProductByDesignation(String designation, double key) throws ProductException;
+    public List<DTOProduct> findProductByDesignation(String designation, double key) throws ProductException;
 
-    public Product findProductById(Long id, double key) throws ProductException;
+    public DTOProduct findProductById(Long id, double key) throws ProductException;
 
     public String findReplacementDateByProduct(Long id, double key) throws ProductException;
 
@@ -38,10 +38,12 @@ public interface ApInterface {
 
     public String makeOrder(List<DTOItem> items, double key);
 
-    public OrderReceived findOrderById(Long id, double key);
+    public DTOOrderReceived findOrderById(Long id, double key);
 
     public String orderDeliveryDate(Long id, double key);
 
-    public List<OrderReceived> findAllOrders(double key);
+    public List<DTOOrderReceived> findAllOrders(double key);
+
+    public List<DTOItem> findAllOrderItems(Long id, double key);
 
 }

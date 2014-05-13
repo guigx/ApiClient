@@ -20,8 +20,8 @@ import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import pojos.DTOItem;
-import pojos.OrderReceived;
-import pojos.Product;
+import pojos.DTOOrderReceived;
+import pojos.DTOProduct;
 
 /**
  *
@@ -36,7 +36,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public List<Product> findProdutByCategory(String category, double key) throws ProductException {
+    public List<DTOProduct> findProdutByCategory(String category, double key) throws ProductException {
         try {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
@@ -48,7 +48,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public List<Product> findAllProducts(double key) throws ProductException {
+    public List<DTOProduct> findAllProducts(double key) throws ProductException {
         try {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
@@ -60,7 +60,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public List<Product> findProductByDescription(String description, double key) throws ProductException {
+    public List<DTOProduct> findProductByDescription(String description, double key) throws ProductException {
         try {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
@@ -72,7 +72,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public List<Product> findProductByDesignation(String designation, double key) throws ProductException {
+    public List<DTOProduct> findProductByDesignation(String designation, double key) throws ProductException {
         try {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
@@ -84,7 +84,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public Product findProductById(Long id, double key) throws ProductException {
+    public DTOProduct findProductById(Long id, double key) throws ProductException {
         try {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
@@ -154,7 +154,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public OrderReceived findOrderById(Long id, double key) {
+    public DTOOrderReceived findOrderById(Long id, double key) {
         try {
             Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
             Soap.SoapWebService port = service.getSoapWebServicePort();
@@ -178,7 +178,7 @@ public class ApSoap implements ApInterface {
     }
 
     @Override
-    public List<OrderReceived> findAllOrders(double key) {
+    public List<DTOOrderReceived> findAllOrders(double key) {
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
         try {
@@ -187,6 +187,14 @@ public class ApSoap implements ApInterface {
             Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
             return new ArrayList();
         }
+    }
+
+    @Override
+    public List<DTOItem> findAllOrderItems(Long id, double key) {
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        return null;
+        //return DTOConverter.convertListDtoItemToSoapItems(port.findOrderItems(id, key));
     }
 
 }

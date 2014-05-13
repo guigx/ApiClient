@@ -12,11 +12,11 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import pojos.DTOItem;
-import pojos.OrderReceived;
-import pojos.Product;
+import pojos.DTOOrderReceived;
+import pojos.DTOProduct;
 
 /**
- * Jersey REST client generated for REST resource:ProductFacadeREST
+ * Jersey REST client generated for REST resource:DTOProductFacadeREST
  * [/product]<br>
  * USAGE:
  * <pre>
@@ -45,10 +45,10 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findProdutByCategory(String category, double key) throws ProductException {
+    public List<DTOProduct> findProdutByCategory(String category, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("category/{0}", new Object[]{category}));
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
+        List<DTOProduct> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOProduct>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -58,9 +58,9 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findAllProducts(double key) throws ProductException {
+    public List<DTOProduct> findAllProducts(double key) throws ProductException {
         WebTarget resource = webTargetProduct;
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
+        List<DTOProduct> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOProduct>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -70,10 +70,10 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findProductByDescription(String description, double key) throws ProductException {
+    public List<DTOProduct> findProductByDescription(String description, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("description/{0}", new Object[]{description}));
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
+        List<DTOProduct> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOProduct>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -82,10 +82,10 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public List<Product> findProductByDesignation(String designation, double key) throws ProductException {
+    public List<DTOProduct> findProductByDesignation(String designation, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("designation/{0}", new Object[]{designation}));
-        List<Product> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<Product>>() {
+        List<DTOProduct> productList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOProduct>>() {
         });
         if (productList.isEmpty()) {
             throw new ProductException();
@@ -94,10 +94,10 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public Product findProductById(Long id, double key) throws ProductException {
+    public DTOProduct findProductById(Long id, double key) throws ProductException {
         WebTarget resource = webTargetProduct;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
-        Product p = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(Product.class);
+        DTOProduct p = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(DTOProduct.class);
         if (p == null) {
             throw new ProductException();
         }
@@ -147,17 +147,17 @@ public class ApRest implements ApInterface {
     }
 
     @Override
-    public OrderReceived findOrderById(Long id, double key) {
+    public DTOOrderReceived findOrderById(Long id, double key) {
         WebTarget resource = webTargetOrder;
         resource = resource.path(java.text.MessageFormat.format("{0}", new Object[]{id}));
-        OrderReceived order = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(OrderReceived.class);
+        DTOOrderReceived order = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(DTOOrderReceived.class);
         return order;
     }
 
     @Override
-    public List<OrderReceived> findAllOrders(double key) {
+    public List<DTOOrderReceived> findAllOrders(double key) {
         WebTarget resource = webTargetOrder;
-        List<OrderReceived> ordertList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<OrderReceived>>() {
+        List<DTOOrderReceived> ordertList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOOrderReceived>>() {
         });
         return ordertList;
 
@@ -165,5 +165,10 @@ public class ApRest implements ApInterface {
 
     public void close() {
         client.close();
+    }
+
+    @Override
+    public List<DTOItem> findAllOrderItems(Long id, double key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
