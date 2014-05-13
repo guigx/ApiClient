@@ -208,7 +208,12 @@ public class ApSoap implements ApInterface {
     public List<DTOOrderReceived> findOrdersByClientId(double key) {
         Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
         Soap.SoapWebService port = service.getSoapWebServicePort();
-        return DTOConverter.findOrdersByClientId(port.findOrderByClienId(key));
+        try {
+            return DTOConverter.findOrdersByClientId(port.findOrderByClienId(key));
+        } catch (ClientNotFoundException_Exception | OrderNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return new ArrayList();
+        }
     }
 
 }
