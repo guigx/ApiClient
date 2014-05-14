@@ -43,8 +43,6 @@ public interface ApInterface {
 
     public String orderDeliveryDate(Long id, double key);
 
-    public List<DTOOrderReceived> findAllOrders(double key);
-
     public List<DTOOrderItem> findAllOrderItems(Long id, double key);
 
     public List<DTOOrderReceived> findOrdersByClientId(double key);
