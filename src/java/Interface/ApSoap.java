@@ -218,7 +218,14 @@ public class ApSoap implements ApInterface {
 
     @Override
     public void editOrder(Long orderId, List<DTOOrderItem> newList, double key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        try {
+            port.editOrder(DTOConverter.convertListSoapItemToDtoItems(newList), orderId, key);
+        } catch (OrderNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

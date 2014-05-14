@@ -6,6 +6,7 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -14,7 +15,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.event.RowEditEvent;
-import pojos.DTOItem;
 import pojos.DTOOrderItem;
 import pojos.DTOOrderReceived;
 
@@ -32,6 +32,7 @@ public class OrderController implements Serializable {
     private double totalOrderPrice;
     private boolean popRender;
     private int itemQuantity;
+    private List<DTOOrderItem> editableList;
     private static final long serialVersionUID = 1L;
 
     public OrderController() {
@@ -42,6 +43,7 @@ public class OrderController implements Serializable {
 
         popRender = false;
         orderSelected = 0L;
+        editableList = new ArrayList();
     }
 
     //Getter´s and Setter´s
@@ -85,6 +87,14 @@ public class OrderController implements Serializable {
         this.itemQuantity = itemQuantity;
     }
 
+    public List<DTOOrderItem> getEditableList() {
+        return editableList;
+    }
+
+    public void setEditableList(List<DTOOrderItem> editableList) {
+        this.editableList = editableList;
+    }
+
     //Methods
     /**
      * Return order history
@@ -105,6 +115,7 @@ public class OrderController implements Serializable {
         totalOrderPrice = 0.0;
 
         List<DTOOrderItem> list = sessionBean.getApiService().findAllOrderItems(orderSelected, sessionBean.getApiKey());
+        editableList = list;
 
         for (DTOOrderItem it : list) {
 
@@ -129,16 +140,21 @@ public class OrderController implements Serializable {
     }
 
     public void onEdit(RowEditEvent event) {
-        DTOItem item = (DTOItem) event.getObject();
-        //FacesMessage msg = new FacesMessage("Car Edited", ((DTOItem) event.getObject()));
+        DTOOrderItem item = (DTOOrderItem) event.getObject();
+        editableList.get(editableList.indexOf(item)).setQuantity(item.getQuantity());
 
-        //FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void onCancel(RowEditEvent event) {
         //FacesMessage msg = new FacesMessage("Car Cancelled", ((Car) event.getObject()).getModel());
 
         //FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void editOrder() {
+
+        sessionBean.getApiService().editOrder(orderSelected, editableList, sessionBean.apiKey);
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Order Successfuly Edited"));
     }
 
 }
