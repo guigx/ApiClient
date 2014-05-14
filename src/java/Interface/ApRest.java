@@ -195,4 +195,9 @@ public class ApRest implements ApInterface {
     public String deleteOrderById(Long orderId, double key) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void editOrder(Long orderId, List<DTOOrderItem> newList, double key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

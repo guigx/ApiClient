@@ -13,6 +13,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.event.RowEditEvent;
+import pojos.DTOItem;
 import pojos.DTOOrderItem;
 import pojos.DTOOrderReceived;
 
@@ -29,6 +31,7 @@ public class OrderController implements Serializable {
     private Long orderSelected;
     private double totalOrderPrice;
     private boolean popRender;
+    private int itemQuantity;
     private static final long serialVersionUID = 1L;
 
     public OrderController() {
@@ -74,6 +77,14 @@ public class OrderController implements Serializable {
         this.popRender = popRender;
     }
 
+    public int getItemQuantity() {
+        return itemQuantity;
+    }
+
+    public void setItemQuantity(int itemQuantity) {
+        this.itemQuantity = itemQuantity;
+    }
+
     //Methods
     /**
      * Return order history
@@ -115,6 +126,19 @@ public class OrderController implements Serializable {
         }
 
         //return "allProducts";
+    }
+
+    public void onEdit(RowEditEvent event) {
+        DTOItem item = (DTOItem) event.getObject();
+        //FacesMessage msg = new FacesMessage("Car Edited", ((DTOItem) event.getObject()));
+
+        //FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+
+    public void onCancel(RowEditEvent event) {
+        //FacesMessage msg = new FacesMessage("Car Cancelled", ((Car) event.getObject()).getModel());
+
+        //FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
 }

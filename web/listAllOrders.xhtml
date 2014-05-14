@@ -42,12 +42,20 @@
                     </p:commandButton>
                 </p:column>
 
+                <p:column headerText="Edit Order" >
+                    <p:commandLink value="Edit" type="button"  oncomplete="PF('dlg4').show();" update=":editModal">
+                        <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
+                    </p:commandLink>
+                </p:column>
+
 
                 <f:facet name="footer">
                 </f:facet>
             </p:dataTable>
 
         </h:form>
+
+        <!--        POPUP VER DETALHES DA ENCOMENDA-->
 
         <h:form id="itemsModal">
             <p:dialog id="itemsDialog" header="Quantity" widgetVar="dlg3" modal="true" width="auto" height="auto">
@@ -70,7 +78,7 @@
                     </p:column>
 
                     <p:column headerText="Price" >
-                        #{orderItem.price}
+                        #{orderItem.price}€
                     </p:column>
 
                     <f:facet name="footer">
@@ -83,6 +91,60 @@
 
         </h:form>
 
+
+        <!--        AQUI COMEÇA A TABELA EDITAVEL-->
+
+        <h:form id="editModal">
+            <p:dialog id="editDialog" header="Edit Order" widgetVar="dlg4" modal="true" width="auto" height="auto">
+
+                <p:dataTable id="editTable" var="orderItem" value="#{orderController.allOrderItems()}" paginator="true" rows="10" editable="true">
+                    <f:facet name="header">
+                        Order Nº #{orderController.orderSelected}
+                    </f:facet>
+                    <!--VER AQUI-->
+                    <p:ajax event="rowEdit" listener="#{orderController.onEdit}" update=":editModal" />
+                    <p:ajax event="rowEditCancel" listener="#{orderController.onCancel}" update=":editModal" />
+
+                    <p:column headerText="Product ID" >
+                        #{orderItem.productId}
+                    </p:column>
+
+                    <p:column headerText="Name" >
+                        #{orderItem.productName}
+                    </p:column>
+                    <!--VER AQUI-->
+                    <p:column headerText="Quantity" >
+                        <p:cellEditor>
+                            <f:facet name="output">
+                                <h:outputText value="#{orderItem.quantity}" />
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:spinner id="minmax" value="#{orderController.itemQuantity}" min="1"/>
+                            </f:facet>
+                        </p:cellEditor>
+                    </p:column>
+
+                    <p:column headerText="Price" >
+                        #{orderItem.price}
+                    </p:column>
+
+                    <p:column style="width:6%">
+                        <p:rowEditor />
+                    </p:column>
+
+                    <p:column headerText="Price" >
+                        <p:commandButton icon="ui-icon-trash"/>
+                    </p:column>
+
+                    <f:facet name="footer">
+                        Total: #{orderController.totalOrderPrice}€
+                    </f:facet>
+
+                </p:dataTable>
+
+
+            </p:dialog>
+        </h:form>
     </ui:define>
 
 </ui:composition>

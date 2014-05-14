@@ -51,4 +51,6 @@ public interface ApInterface {
 
     public String deleteOrderById(Long orderId, double key);
 
+    public void editOrder(Long orderId, List<DTOOrderItem> newList, double key);
+
 }

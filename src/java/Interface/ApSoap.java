@@ -228,4 +228,9 @@ public class ApSoap implements ApInterface {
         }
     }
 
+    @Override
+    public void editOrder(Long orderId, List<DTOOrderItem> newList, double key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }
