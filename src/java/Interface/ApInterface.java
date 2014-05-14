@@ -49,4 +49,6 @@ public interface ApInterface {
 
     public List<DTOOrderReceived> findOrdersByClientId(double key);
 
+    public String deleteOrderById(Long orderId, double key);
+
 }

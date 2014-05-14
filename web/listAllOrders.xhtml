@@ -9,6 +9,7 @@
 
     <ui:define name="content">
         <h1>Orders History</h1>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <h:form id="allOrders">
 
             <p:dataTable id="allProds" var="order" value="#{orderController.allOrders()}" paginator="true" rows="10">
@@ -33,6 +34,12 @@
                     <p:commandLink value="View Items" type="button" action="#{orderController.allOrderItems()}" oncomplete="PF('dlg3').show();" update=":itemsModal:itemsDialog">
                         <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
                     </p:commandLink>
+                </p:column>
+
+                <p:column headerText="Delivery Date" >
+                    <p:commandButton icon="ui-icon-close" ajax="false" action="#{orderController.deleteOrder()}" update=":allOrders:allProds">
+                        <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
+                    </p:commandButton>
                 </p:column>
 
 

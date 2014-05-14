@@ -190,4 +190,9 @@ public class ApRest implements ApInterface {
         return resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOOrderReceived>>() {
         });
     }
+
+    @Override
+    public String deleteOrderById(Long orderId, double key) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

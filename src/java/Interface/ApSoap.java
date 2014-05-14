@@ -216,4 +216,16 @@ public class ApSoap implements ApInterface {
         }
     }
 
+    @Override
+    public String deleteOrderById(Long orderId, double key) {
+        Soap.SoapWebService_Service service = new Soap.SoapWebService_Service();
+        Soap.SoapWebService port = service.getSoapWebServicePort();
+        try {
+            return port.deleteOrderById(orderId, key);
+        } catch (ClientNotFoundException_Exception | OrderNotFoundException_Exception ex) {
+            Logger.getLogger(ApSoap.class.getName()).log(Level.SEVERE, null, ex);
+            return "not deleted";
+        }
+    }
+
 }

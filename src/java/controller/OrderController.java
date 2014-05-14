@@ -8,6 +8,8 @@ package controller;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,6 +29,7 @@ public class OrderController implements Serializable {
     private Long orderSelected;
     private double totalOrderPrice;
     private boolean popRender;
+    private static final long serialVersionUID = 1L;
 
     public OrderController() {
     }
@@ -82,8 +85,13 @@ public class OrderController implements Serializable {
         return sessionBean.getApiService().findOrdersByClientId(sessionBean.getApiKey());
     }
 
+    /**
+     *
+     * @return
+     */
     public List<DTOOrderItem> allOrderItems() {
         popRender = true;
+        totalOrderPrice = 0.0;
 
         List<DTOOrderItem> list = sessionBean.getApiService().findAllOrderItems(orderSelected, sessionBean.getApiKey());
 
@@ -92,6 +100,21 @@ public class OrderController implements Serializable {
             totalOrderPrice += it.getPrice();
         }
         return list;
+    }
+
+    public void deleteOrder() {
+
+        String s = sessionBean.getApiService().deleteOrderById(orderSelected, sessionBean.getApiKey());
+
+        if (s.equals("Deleted")) {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Success", "Order Successfuly Deleted"));
+        } else {
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "ERROR", "Order NOT DELETED"));
+        }
+
+        //return "allProducts";
     }
 
 }
