@@ -37,13 +37,13 @@
                 </p:column>
 
                 <p:column headerText="Delete Order" >
-                    <p:commandButton icon="ui-icon-close" ajax="false" action="#{orderController.deleteOrder()}" update=":allOrders:allProds">
+                    <p:commandButton icon="ui-icon-trash" ajax="false" action="#{orderController.deleteOrder()}" update=":allOrders:allProds">
                         <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
                     </p:commandButton>
                 </p:column>
 
                 <p:column headerText="Edit Order" >
-                    <p:commandLink value="Edit" type="button"  oncomplete="PF('dlg4').show();" update=":editModal">
+                    <p:commandLink value="Edit" type="button" action="#{orderController.editList()}" update=":editModal">
                         <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
                     </p:commandLink>
                 </p:column>
@@ -93,16 +93,15 @@
 
 
         <!--        AQUI COMEÇA A TABELA EDITAVEL-->
-
+        <h1>EDIT YOUR ORDER</h1>
         <h:form id="editModal">
-            <!--            <p:dialog id="editDialogix" header="Edit Order" widgetVar="dlg4" modal="true" width="auto" height="auto">-->
-
+            <p:growl id="messages" showDetail="true"/>
             <p:dataTable id="editTable" var="orderItem" value="#{orderController.editableList}" paginator="true" rows="10" editable="true">
                 <f:facet name="header">
                     Order Nº #{orderController.orderSelected}
                 </f:facet>
                 <!--VER AQUI-->
-                <p:ajax event="rowEdit" listener="#{orderController.onEdit}" update=":editModal" />
+                <p:ajax event="rowEdit" listener="#{orderController.onEdit}" update=":editModal:editTable" />
                 <p:ajax event="rowEditCancel" listener="#{orderController.onCancel}" />
 
                 <p:column headerText="Product ID" >
@@ -128,20 +127,20 @@
                     #{orderItem.price}
                 </p:column>
 
-                <p:column style="width:6%">
+                <p:column headerText="Edit" style="width:6%">
                     <p:rowEditor />
                 </p:column>
 
-                <p:column headerText="Price" >
-                    <p:commandButton icon="ui-icon-trash"/>
+                <p:column headerText="Remove" >
+                    <p:commandButton icon="ui-icon-trash" action="#{orderController.removeItem(orderItem)}" update=":editModal"/>
+
                 </p:column>
 
                 <f:facet name="footer">
                     Total: #{orderController.totalOrderPrice}€
                 </f:facet>
             </p:dataTable>
-            <p:commandButton icon="ui-icon-trash" action="#{orderController.editOrder()}"/>
-            <!--</p:dialog>-->
+            <p:commandButton icon="ui-icon-trash" value="Finish Edit" action="#{orderController.editOrder()}" update=":editModal"/>
         </h:form>
     </ui:define>
 
