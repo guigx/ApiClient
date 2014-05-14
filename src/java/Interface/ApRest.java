@@ -153,6 +153,16 @@ public class ApRest implements ApInterface {
     }
 
     @Override
+    public void editOrder(Long orderId, List<DTOOrderItem> newList, double key) {
+        GenericEntity<List<DTOOrderItem>> entity = new GenericEntity<List<DTOOrderItem>>(newList) {
+        };
+        WebTarget resource = webTargetOrderItem;
+        resource = resource.path(java.text.MessageFormat.format("{0}", orderId.toString()));
+        resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key)
+                .put(Entity.entity(entity, javax.ws.rs.core.MediaType.APPLICATION_JSON), String.class);
+    }
+
+    @Override
     public DTOOrderReceived findOrderById(Long id, double key) {
         WebTarget resource = webTargetOrder;
         resource = resource.path(java.text.MessageFormat.format("{0}", id.toString()));
@@ -160,14 +170,6 @@ public class ApRest implements ApInterface {
         return order;
     }
 
-//    @Override
-//    public List<DTOOrderReceived> findAllOrders(double key) {
-//        WebTarget resource = webTargetOrder;
-//        List<DTOOrderReceived> ordertList = resource.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).header("key", key).get(new GenericType<List<DTOOrderReceived>>() {
-//        });
-//        return ordertList;
-//
-//    }
     public void close() {
         client.close();
     }
@@ -193,8 +195,4 @@ public class ApRest implements ApInterface {
         return resource.path(java.text.MessageFormat.format("{0}", orderId.toString())).request().header("key", key).delete(String.class);
     }
 
-    @Override
-    public void editOrder(Long orderId, List<DTOOrderItem> newList, double key) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
