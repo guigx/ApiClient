@@ -1,0 +1,417 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is Metro/2.3 (tags/2.3-7528; 2013-04-29T19:34:10+0000) JAXWS-RI/2.2.8 JAXWS/2.2 svn-revision#unknown. --><xs:schema xmlns:tns="http://soapWs.grupoi.projeto4.paj.dei.uc.pt/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://soapWs.grupoi.projeto4.paj.dei.uc.pt/">
+
+<xs:element name="ClientNotFoundException" type="tns:ClientNotFoundException"/>
+
+<xs:element name="ItemNotFoundException" type="tns:ItemNotFoundException"/>
+
+<xs:element name="LoginInvalidateException" type="tns:LoginInvalidateException"/>
+
+<xs:element name="OrderNotCreatedException" type="tns:OrderNotCreatedException"/>
+
+<xs:element name="OrderNotFoundException" type="tns:OrderNotFoundException"/>
+
+<xs:element name="ProductNotFoundException" type="tns:ProductNotFoundException"/>
+
+<xs:element name="client" type="tns:client"/>
+
+<xs:element name="deleteOrderById" type="tns:deleteOrderById"/>
+
+<xs:element name="deleteOrderByIdResponse" type="tns:deleteOrderByIdResponse"/>
+
+<xs:element name="findAllOrders" type="tns:findAllOrders"/>
+
+<xs:element name="findAllOrdersResponse" type="tns:findAllOrdersResponse"/>
+
+<xs:element name="findAllProducts" type="tns:findAllProducts"/>
+
+<xs:element name="findAllProductsResponse" type="tns:findAllProductsResponse"/>
+
+<xs:element name="findOrder" type="tns:findOrder"/>
+
+<xs:element name="findOrderByClienId" type="tns:findOrderByClienId"/>
+
+<xs:element name="findOrderByClienIdResponse" type="tns:findOrderByClienIdResponse"/>
+
+<xs:element name="findOrderItems" type="tns:findOrderItems"/>
+
+<xs:element name="findOrderItemsResponse" type="tns:findOrderItemsResponse"/>
+
+<xs:element name="findOrderResponse" type="tns:findOrderResponse"/>
+
+<xs:element name="findProductByDesignation" type="tns:findProductByDesignation"/>
+
+<xs:element name="findProductByDesignationResponse" type="tns:findProductByDesignationResponse"/>
+
+<xs:element name="findProductById" type="tns:findProductById"/>
+
+<xs:element name="findProductByIdResponse" type="tns:findProductByIdResponse"/>
+
+<xs:element name="findProductsByCategory" type="tns:findProductsByCategory"/>
+
+<xs:element name="findProductsByCategoryResponse" type="tns:findProductsByCategoryResponse"/>
+
+<xs:element name="findProductsByDescription" type="tns:findProductsByDescription"/>
+
+<xs:element name="findProductsByDescriptionResponse" type="tns:findProductsByDescriptionResponse"/>
+
+<xs:element name="findStockByProduct" type="tns:findStockByProduct"/>
+
+<xs:element name="findStockByProductResponse" type="tns:findStockByProductResponse"/>
+
+<xs:element name="getProductsByCategory" type="tns:getProductsByCategory"/>
+
+<xs:element name="getProductsByCategoryResponse" type="tns:getProductsByCategoryResponse"/>
+
+<xs:element name="init" type="tns:init"/>
+
+<xs:element name="initResponse" type="tns:initResponse"/>
+
+<xs:element name="login" type="tns:login"/>
+
+<xs:element name="loginResponse" type="tns:loginResponse"/>
+
+<xs:element name="makeOrder" type="tns:makeOrder"/>
+
+<xs:element name="makeOrderResponse" type="tns:makeOrderResponse"/>
+
+<xs:element name="makeOrderTest" type="tns:makeOrderTest"/>
+
+<xs:element name="makeOrderTestResponse" type="tns:makeOrderTestResponse"/>
+
+<xs:element name="orderDeliveryDate" type="tns:orderDeliveryDate"/>
+
+<xs:element name="orderDeliveryDateResponse" type="tns:orderDeliveryDateResponse"/>
+
+<xs:element name="orderItems" type="tns:orderItems"/>
+
+<xs:element name="orderReceived" type="tns:orderReceived"/>
+
+<xs:element name="product" type="tns:product"/>
+
+<xs:element name="replacementDateByProduct" type="tns:replacementDateByProduct"/>
+
+<xs:element name="replacementDateByProductResponse" type="tns:replacementDateByProductResponse"/>
+
+<xs:complexType name="makeOrderTest">
+<xs:sequence>
+<xs:element name="productId" type="xs:long"/>
+<xs:element name="quantity" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="makeOrderTestResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findStockByProduct">
+<xs:sequence>
+<xs:element name="productId" type="xs:long"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findStockByProductResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ProductNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getProductsByCategory">
+<xs:sequence>
+<xs:element name="category" type="xs:string" minOccurs="0"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getProductsByCategoryResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="product">
+<xs:sequence>
+<xs:element name="attributess" type="tns:attributes" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="brand" type="xs:string" minOccurs="0"/>
+<xs:element name="category" type="xs:string" minOccurs="0"/>
+<xs:element name="description" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="model" type="xs:string" minOccurs="0"/>
+<xs:element name="repoDate" type="xs:dateTime" minOccurs="0"/>
+<xs:element name="sellPrice" type="xs:double"/>
+<xs:element name="stockQtt" type="xs:int"/>
+<xs:element name="version" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="attributes">
+<xs:sequence>
+<xs:element name="attribute_name" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="products" type="tns:product" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findOrderItems">
+<xs:sequence>
+<xs:element name="orderId" type="xs:long"/>
+<xs:element name="apiKey" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findOrderItemsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:orderItems" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderItems">
+<xs:sequence>
+<xs:element name="orderReceivedId" type="xs:long" minOccurs="0"/>
+<xs:element name="price" type="xs:double"/>
+<xs:element name="productId" type="xs:long" minOccurs="0"/>
+<xs:element name="product_name" type="xs:string" minOccurs="0"/>
+<xs:element name="quantity" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ClientNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ItemNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductByDesignation">
+<xs:sequence>
+<xs:element name="word" type="xs:string" minOccurs="0"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductByDesignationResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="init">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="initResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="deleteOrderById">
+<xs:sequence>
+<xs:element name="orderId" type="xs:long"/>
+<xs:element name="apiKey" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="deleteOrderByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="OrderNotFoundException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllProducts">
+<xs:sequence>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllProductsResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="replacementDateByProduct">
+<xs:sequence>
+<xs:element name="productId" type="xs:long"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="replacementDateByProductResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductsByCategory">
+<xs:sequence>
+<xs:element name="word" type="xs:string" minOccurs="0"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductsByCategoryResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="makeOrder">
+<xs:sequence>
+<xs:element name="items" type="tns:item" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="item">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="price" type="xs:double"/>
+<xs:element name="productId" type="xs:long" minOccurs="0"/>
+<xs:element name="quantity" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="makeOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="OrderNotCreatedException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllOrders">
+<xs:sequence>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllOrdersResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:orderReceived" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderReceived">
+<xs:sequence>
+<xs:element ref="tns:client" minOccurs="0"/>
+<xs:element name="deliveryDate" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="orderDate" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="client">
+<xs:sequence>
+<xs:element name="apiKey" type="xs:double"/>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:long" minOccurs="0"/>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findOrderByClienId">
+<xs:sequence>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findOrderByClienIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:orderReceived" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findOrder">
+<xs:sequence>
+<xs:element name="orderId" type="xs:long"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findOrderResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:orderReceived" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderDeliveryDate">
+<xs:sequence>
+<xs:element name="orderId" type="xs:long"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="orderDeliveryDateResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductsByDescription">
+<xs:sequence>
+<xs:element name="word" type="xs:string" minOccurs="0"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductsByDescriptionResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:product" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="login">
+<xs:sequence>
+<xs:element name="email" type="xs:string" minOccurs="0"/>
+<xs:element name="password" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="loginResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="LoginInvalidateException">
+<xs:sequence>
+<xs:element name="message" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductById">
+<xs:sequence>
+<xs:element name="productId" type="xs:long"/>
+<xs:element name="key" type="xs:double"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findProductByIdResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:product" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>
