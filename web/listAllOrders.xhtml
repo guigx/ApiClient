@@ -31,12 +31,12 @@
                 </p:column>
 
                 <p:column headerText="View Items" >
-                    <p:commandLink value="View Items" type="button" action="#{orderController.allOrderItems()}" oncomplete="PF('dlg3').show();" update=":itemsModal:itemsDialog">
+                    <p:commandLink value="View Items" type="button"  oncomplete="PF('dlg3').show();" update=":itemsModal:itemsDialog">
                         <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
                     </p:commandLink>
                 </p:column>
 
-                <p:column headerText="Delivery Date" >
+                <p:column headerText="Delete Order" >
                     <p:commandButton icon="ui-icon-close" ajax="false" action="#{orderController.deleteOrder()}" update=":allOrders:allProds">
                         <f:setPropertyActionListener value="#{order.id}" target="#{orderController.orderSelected}"/>
                     </p:commandButton>
@@ -50,11 +50,11 @@
         </h:form>
 
         <h:form id="itemsModal">
-            <p:dialog id="itemsDialog" header="Quantity" widgetVar="dlg3" modal="true" height="100">
+            <p:dialog id="itemsDialog" header="Quantity" widgetVar="dlg3" modal="true" width="auto" height="auto">
 
                 <p:dataTable id="orderItems" var="orderItem" value="#{orderController.allOrderItems()}" paginator="true" rows="10">
                     <f:facet name="header">
-                        Order No #{orderController.orderSelected} items
+                        Order Nº #{orderController.orderSelected}
                     </f:facet>
 
                     <p:column headerText="Product ID" >
